@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.danielak.szachy.GlupiaGra;
 import pl.danielak.szachy.Gra;
+import pl.danielak.szachy.Szachy;
 import pl.danielak.szachy.dto.ParametryPolaDto;
 import pl.danielak.szachy.dto.PionekDto;
 
@@ -20,7 +21,7 @@ public class SzachyController {
     Gra gra;
 
     public SzachyController() {
-        gra = new GlupiaGra(3,3);
+        gra = new Szachy();
     }
 
     @GetMapping("/plansza")

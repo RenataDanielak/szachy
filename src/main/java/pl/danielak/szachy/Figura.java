@@ -1,5 +1,8 @@
 package pl.danielak.szachy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Figura {
     private int polozenieX;
     private int polozenieY;
@@ -27,6 +30,12 @@ public class Figura {
 
     public void setKolor(boolean kolor) {
         this.kolor = kolor;
+    }
+
+    public List<ParametryPola> podajMozliweRuchy(){
+        List<ParametryPola> lista;
+        lista = new ArrayList<>();
+        return lista;
     }
 
 }

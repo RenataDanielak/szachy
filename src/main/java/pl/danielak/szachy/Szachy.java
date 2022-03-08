@@ -55,6 +55,25 @@ public class Szachy implements Gra {
 
     @Override
     public boolean wykonajRuch(ParametryPolaDto pozycjaPoczatkowa, ParametryPolaDto pozycjaKoncowa) {
+        int pozycjaPoczatkowaX = pozycjaPoczatkowa.getPozycjaX();
+        int pozycjaPoczatkowaY = pozycjaPoczatkowa.getPozycjaY();
+        for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ){
+            Figura figura = szachownica.getFigury().get(i);
+            if (pozycjaPoczatkowaX == figura.getPolozenieX() && pozycjaPoczatkowaY == figura.getPolozenieY()){
+                 List<ParametryPola> mozliweRuchy = figura.podajMozliweRuchy();
+                 int pozycjaKoncowaX = pozycjaKoncowa.getPozycjaX();
+                 int pozycjaKoncowaY = pozycjaKoncowa.getPozycjaY();
+                for (int j = 0; j < mozliweRuchy.size(); j = j + 1 ){
+                   if(pozycjaKoncowaX == mozliweRuchy.get(j).getPolozenieX() && pozycjaKoncowaY == mozliweRuchy.get(j).getPolozenieY()) {
+                      figura.setPolozenieX(pozycjaKoncowaX);
+                      figura.setPolozenieY(pozycjaKoncowaY);
+                       return true;
+                   }
+                }
+            }
+
+        }
+
         return false;
     }
 }

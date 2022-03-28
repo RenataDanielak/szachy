@@ -1,10 +1,7 @@
 package pl.danielak.szachy.warstwaSieciowa;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.danielak.szachy.GlupiaGra;
 import pl.danielak.szachy.Gra;
 import pl.danielak.szachy.Szachy;
@@ -14,6 +11,7 @@ import pl.danielak.szachy.dto.PionekDto;
 import java.lang.reflect.Parameter;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/szachy")
 public class SzachyController {

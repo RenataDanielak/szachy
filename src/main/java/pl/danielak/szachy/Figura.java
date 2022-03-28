@@ -32,7 +32,7 @@ public class Figura {
         this.kolor = kolor;
     }
 
-    public List<ParametryPola> podajMozliweRuchy(){
+    public List<ParametryPola> podajMozliweRuchy(Szachownica szachownica){
         List<ParametryPola> lista;
         lista = new ArrayList<>();
         return lista;

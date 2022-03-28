@@ -13,9 +13,15 @@ public class Szachy implements Gra {
         szachownica = new Szachownica();
         Pionek pionek = new Pionek();
         pionek.setKolor(true);
-        pionek.setPolozenieX(0);
+        pionek.setPolozenieX(1);
         pionek.setPolozenieY(1);
         szachownica.getFigury().add(pionek);
+
+        Pionek pionek1 = new Pionek();
+        pionek1.setKolor(false);
+        pionek1.setPolozenieX(0);
+        pionek1.setPolozenieY(2);
+        szachownica.getFigury().add(pionek1);
     }
 
     @Override
@@ -40,9 +46,9 @@ public class Szachy implements Gra {
             int pozycjaPionkaNaSzachownicyY = pozycjaPionkaNaSzachownicy.getPozycjaY();
             if (pozycjaPoczatkowaX == pozycjaPionkaNaSzachownicyX && pozycjaPoczatkowaY == pozycjaPionkaNaSzachownicyY){
                 List<ParametryPolaDto> listaWynikowa = new ArrayList<>();
-                List <ParametryPola> lista = figura.podajMozliweRuchy();
+                List <ParametryPola> lista = figura.podajMozliweRuchy(szachownica);
                 for (int j = 0; j < lista.size(); j = j + 1 ){
-                    ParametryPola parametryPola = lista.get(i);
+                    ParametryPola parametryPola = lista.get(j);
                     ParametryPolaDto parametryPolaDto = new ParametryPolaDto( parametryPola.getPolozenieX(), parametryPola.getPolozenieY());
                     listaWynikowa.add(parametryPolaDto);
                 }
@@ -60,13 +66,23 @@ public class Szachy implements Gra {
         for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ){
             Figura figura = szachownica.getFigury().get(i);
             if (pozycjaPoczatkowaX == figura.getPolozenieX() && pozycjaPoczatkowaY == figura.getPolozenieY()){
-                 List<ParametryPola> mozliweRuchy = figura.podajMozliweRuchy();
+                 List<ParametryPola> mozliweRuchy = figura.podajMozliweRuchy(szachownica);
                  int pozycjaKoncowaX = pozycjaKoncowa.getPozycjaX();
                  int pozycjaKoncowaY = pozycjaKoncowa.getPozycjaY();
                 for (int j = 0; j < mozliweRuchy.size(); j = j + 1 ){
                    if(pozycjaKoncowaX == mozliweRuchy.get(j).getPolozenieX() && pozycjaKoncowaY == mozliweRuchy.get(j).getPolozenieY()) {
-                      figura.setPolozenieX(pozycjaKoncowaX);
-                      figura.setPolozenieY(pozycjaKoncowaY);
+                      boolean zajete = mozliweRuchy.get(j).isZajete();
+                      if (zajete == true){
+                          for (int k = 0; k < szachownica.getFigury().size(); k = k + 1 ){
+                              int polozenieX = figura.getPolozenieX();
+                              int polozenieY = figura.getPolozenieY();
+                              if (polozenieX == pozycjaKoncowaX && polozenieY == pozycjaKoncowaY){
+                                  Figura removedStr = szachownica.getFigury().remove(k);
+                              }
+                          }
+                      }
+                       figura.setPolozenieX(pozycjaKoncowaX);
+                       figura.setPolozenieY(pozycjaKoncowaY);
                        return true;
                    }
                 }

@@ -12,13 +12,13 @@ public class Szachy implements Gra {
     public Szachy (){
         szachownica = new Szachownica();
         Pionek pionek = new Pionek();
-        pionek.setKolor(true);
+        pionek.setKolor(Kolor.BIALY);
         pionek.setPolozenieX(1);
         pionek.setPolozenieY(1);
         szachownica.getFigury().add(pionek);
 
         Pionek pionek1 = new Pionek();
-        pionek1.setKolor(false);
+        pionek1.setKolor(Kolor.CZARNY);
         pionek1.setPolozenieX(0);
         pionek1.setPolozenieY(2);
         szachownica.getFigury().add(pionek1);
@@ -29,7 +29,7 @@ public class Szachy implements Gra {
         List<PionekDto> lista = new ArrayList<>();
         for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ){
             Figura figura = szachownica.getFigury().get(i);
-            PionekDto pionekDto = new PionekDto( figura.getPolozenieX(), figura.getPolozenieY(), figura.isKolor(), "pionek");
+            PionekDto pionekDto = new PionekDto( figura.getPolozenieX(), figura.getPolozenieY(), figura.getKolor(), "pionek");
             lista.add(pionekDto);
         }
         return lista;
@@ -74,8 +74,8 @@ public class Szachy implements Gra {
                       boolean zajete = mozliweRuchy.get(j).isZajete();
                       if (zajete == true){
                           for (int k = 0; k < szachownica.getFigury().size(); k = k + 1 ){
-                              int polozenieX = figura.getPolozenieX();
-                              int polozenieY = figura.getPolozenieY();
+                              int polozenieX = szachownica.getFigury().get(k).getPolozenieX();
+                              int polozenieY = szachownica.getFigury().get(k).getPolozenieY();
                               if (polozenieX == pozycjaKoncowaX && polozenieY == pozycjaKoncowaY){
                                   Figura removedStr = szachownica.getFigury().remove(k);
                               }

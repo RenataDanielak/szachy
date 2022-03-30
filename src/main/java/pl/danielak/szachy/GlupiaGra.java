@@ -25,7 +25,7 @@ public class GlupiaGra implements Gra{
     @Override
     public List<PionekDto> listaPionkow() {
         List<PionekDto> lista = new ArrayList<>();
-        PionekDto pionekDto = new PionekDto(x, y, false, "PIONEK");
+        PionekDto pionekDto = new PionekDto(x, y, Kolor.CZARNY, "PIONEK");
         lista.add(pionekDto);
         return lista;
     }

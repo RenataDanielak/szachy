@@ -6,7 +6,7 @@ import java.util.List;
 public class Figura {
     private int polozenieX;
     private int polozenieY;
-    private boolean kolor;
+    private Kolor kolor;
 
     public int getPolozenieX() {
         return polozenieX;
@@ -24,11 +24,11 @@ public class Figura {
         this.polozenieY = polozenieY;
     }
 
-    public boolean isKolor() {
+    public Kolor getKolor() {
         return kolor;
     }
 
-    public void setKolor(boolean kolor) {
+    public void setKolor(Kolor kolor) {
         this.kolor = kolor;
     }
 
@@ -37,5 +37,15 @@ public class Figura {
         lista = new ArrayList<>();
         return lista;
     }
+    protected Kolor kolorFiguryNaPolu (Szachownica szachownica, int polozenieX, int polozenieY){
+        for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
+            int polozenieFiguryX = szachownica.getFigury().get(i).getPolozenieX();
+            int polozenieFiguryY = szachownica.getFigury().get(i).getPolozenieY();
+            if (polozenieX == polozenieFiguryX && polozenieY == polozenieFiguryY){
+                return szachownica.getFigury().get(i).getKolor();
+            }
+        }
+        return null;
+   }
 
 }

@@ -14,105 +14,63 @@ public class Pionek extends Figura {
         lista = new ArrayList<>();
         int polozenieX = getPolozenieX();
         int polozenieY = getPolozenieY();
-        boolean wolnePole = true;
-        boolean wolnePole1 = true;
-        if (isKolor() == true){
+        if (getKolor() == Kolor.BIALY){
             if (getPolozenieY() == 7){
                 return null;
             }
-            for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
-                int polozenieInnejFiguryX = szachownica.getFigury().get(i).getPolozenieX();
-                int polozenieInnejFiguryY = szachownica.getFigury().get(i).getPolozenieY();
-                if (polozenieInnejFiguryY == polozenieY + 1 && polozenieInnejFiguryX == polozenieX) {
-                    wolnePole = false;
-                }
-            }
-            if (wolnePole == true){
-                ParametryPola polozenieKoncowe = new ParametryPola(getPolozenieX(),getPolozenieY()+1, false);
+           Kolor pytany = kolorFiguryNaPolu(szachownica,polozenieX,polozenieY+1);
+            if( pytany == null) {
+                ParametryPola polozenieKoncowe = new ParametryPola(getPolozenieX(), getPolozenieY() + 1, false);
                 lista.add(polozenieKoncowe);
-                if (polozenieY == 1){
-                    for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
-                        int polozenieInnejFiguryX = szachownica.getFigury().get(i).getPolozenieX();
-                        int polozenieInnejFiguryY = szachownica.getFigury().get(i).getPolozenieY();
-                        if (polozenieInnejFiguryY == polozenieY + 2 && polozenieInnejFiguryX == polozenieX) {
-                           wolnePole1 = false;
-                        }
-                    }
-                    if (wolnePole1 == true ) {
+                if (polozenieY == 1) {
+                    Kolor pytany1 = kolorFiguryNaPolu(szachownica, polozenieX, polozenieY + 2);
+                    if (pytany1 == null) {
                         ParametryPola polozenieKoncowe1 = new ParametryPola(getPolozenieX(), getPolozenieY() + 2, false);
                         lista.add(polozenieKoncowe1);
                     }
                 }
             }
-            for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
-                int polozenieInnejFiguryX = szachownica.getFigury().get(i).getPolozenieX();
-                int polozenieInnejFiguryY = szachownica.getFigury().get(i).getPolozenieY();
-                boolean kolor = szachownica.getFigury().get(i).isKolor();
-                if (polozenieInnejFiguryY == polozenieY + 1 && polozenieInnejFiguryX == polozenieX + 1 && kolor == false) {
-                    ParametryPola bicie = new ParametryPola(getPolozenieX()+1, getPolozenieY() + 1, true);
-                    lista.add(bicie);
-                }
+            Kolor bicia = kolorFiguryNaPolu(szachownica,polozenieX+1,polozenieY+1);
+            if (bicia == Kolor.CZARNY){
+                ParametryPola bicie = new ParametryPola(getPolozenieX()+1, getPolozenieY() + 1, true);
+                lista.add(bicie);
             }
-            for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
-                int polozenieInnejFiguryX = szachownica.getFigury().get(i).getPolozenieX();
-                int polozenieInnejFiguryY = szachownica.getFigury().get(i).getPolozenieY();
-                boolean kolor = szachownica.getFigury().get(i).isKolor();
-                if (polozenieInnejFiguryY == polozenieY + 1 && polozenieInnejFiguryX == polozenieX - 1 && kolor == false) {
-                    ParametryPola bicie1 = new ParametryPola(getPolozenieX()-1, getPolozenieY() + 1, true);
-                    lista.add(bicie1);
-                }
+            Kolor bicia1 = kolorFiguryNaPolu(szachownica,polozenieX-1,polozenieY+1);
+            if (bicia1 == Kolor.CZARNY){
+                ParametryPola bicie1 = new ParametryPola(getPolozenieX()-1, getPolozenieY() + 1, true);
+                lista.add(bicie1);
             }
         }
 
-        if (isKolor() == false){
-            if(getPolozenieY() == 0){
+        if (getKolor() == Kolor.CZARNY) {
+            if (getPolozenieY() == 0) {
                 return null;
             }
-            for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
-                int polozenieInnejFiguryX = szachownica.getFigury().get(i).getPolozenieX();
-                int polozenieInnejFiguryY = szachownica.getFigury().get(i).getPolozenieY();
-                if (polozenieInnejFiguryY == polozenieY - 1 && polozenieInnejFiguryX == polozenieX) {
-                    wolnePole = false;
-                }
-            }
-            if (wolnePole == true){
-                ParametryPola polozenieKoncowe = new ParametryPola(getPolozenieX(),getPolozenieY()-1, false);
+            Kolor pytany = kolorFiguryNaPolu(szachownica, polozenieX, polozenieY - 1);
+            if (pytany == null) {
+                ParametryPola polozenieKoncowe = new ParametryPola(getPolozenieX(), getPolozenieY() - 1, false);
                 lista.add(polozenieKoncowe);
-                if (polozenieY == 6){
-                    for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
-                        int polozenieInnejFiguryX = szachownica.getFigury().get(i).getPolozenieX();
-                        int polozenieInnejFiguryY = szachownica.getFigury().get(i).getPolozenieY();
-                        if (polozenieInnejFiguryY == polozenieY - 2 && polozenieInnejFiguryX == polozenieX) {
-                            wolnePole1 = false;
-                        }
-                    }
-                    if (wolnePole1 == true ) {
+                if (polozenieY == 6) {
+                    Kolor pytany1 = kolorFiguryNaPolu(szachownica, polozenieX, polozenieY - 2);
+                    if (pytany1 == null) {
                         ParametryPola polozenieKoncowe1 = new ParametryPola(getPolozenieX(), getPolozenieY() - 2, false);
                         lista.add(polozenieKoncowe1);
                     }
                 }
             }
-            for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
-                int polozenieInnejFiguryX = szachownica.getFigury().get(i).getPolozenieX();
-                int polozenieInnejFiguryY = szachownica.getFigury().get(i).getPolozenieY();
-                boolean kolor = szachownica.getFigury().get(i).isKolor();
-                if (polozenieInnejFiguryY == polozenieY - 1 && polozenieInnejFiguryX == polozenieX - 1 && kolor == true) {
-                    ParametryPola bicie = new ParametryPola(getPolozenieX()-1, getPolozenieY() - 1, true);
-                    lista.add(bicie);
-                }
+            Kolor bicia = kolorFiguryNaPolu(szachownica, polozenieX - 1, polozenieY - 1);
+            if (bicia == Kolor.BIALY) {
+                ParametryPola bicie = new ParametryPola(getPolozenieX() - 1, getPolozenieY() - 1, true);
+                lista.add(bicie);
             }
-            for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
-                int polozenieInnejFiguryX = szachownica.getFigury().get(i).getPolozenieX();
-                int polozenieInnejFiguryY = szachownica.getFigury().get(i).getPolozenieY();
-                boolean kolor = szachownica.getFigury().get(i).isKolor();
-                if (polozenieInnejFiguryY == polozenieY - 1 && polozenieInnejFiguryX == polozenieX + 1 && kolor == true) {
-                    ParametryPola bicie1 = new ParametryPola(getPolozenieX()+1, getPolozenieY() - 1, true);
-                    lista.add(bicie1);
-                }
+            Kolor bicia1 = kolorFiguryNaPolu(szachownica, polozenieX + 1, polozenieY - 1);
+            if (bicia1 == Kolor.BIALY) {
+                ParametryPola bicie1 = new ParametryPola(getPolozenieX() + 1, getPolozenieY() - 1, true);
+                lista.add(bicie1);
             }
-
         }
         return lista;
     }
+
 
 }

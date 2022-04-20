@@ -12,6 +12,9 @@ import java.util.List;
 
 //http://localhost:8080/swagger-ui.html
 
+//cd ..\FrontSzachy\szachy\
+//npm run start
+// http://localhost:3000/
 public class GlupiaGra implements Gra{
 
     private int x;
@@ -25,7 +28,7 @@ public class GlupiaGra implements Gra{
     @Override
     public List<PionekDto> listaPionkow() {
         List<PionekDto> lista = new ArrayList<>();
-        PionekDto pionekDto = new PionekDto(x, y, Kolor.CZARNY, "PIONEK");
+        PionekDto pionekDto = new PionekDto(x, y, Kolor.CZARNY, RodzajFigury.PIONEK);
         lista.add(pionekDto);
         return lista;
     }

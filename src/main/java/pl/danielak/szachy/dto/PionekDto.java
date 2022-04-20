@@ -1,14 +1,15 @@
 package pl.danielak.szachy.dto;
 
 import pl.danielak.szachy.Kolor;
+import pl.danielak.szachy.RodzajFigury;
 
 public class PionekDto {
     private int pozycjaX;
     private int pozyjcjaY;
     private Kolor kolor;
-    private String figura;
+    private RodzajFigury figura;
 
-    public PionekDto(int pozycjaX, int pozyjcjaY, Kolor kolor, String figura) {
+    public PionekDto(int pozycjaX, int pozyjcjaY, Kolor kolor, RodzajFigury figura) {
         this.pozycjaX = pozycjaX;
         this.pozyjcjaY = pozyjcjaY;
         this.kolor = kolor;
@@ -39,11 +40,11 @@ public class PionekDto {
         this.kolor = kolor;
     }
 
-    public String getFigura() {
+    public RodzajFigury getFigura() {
         return figura;
     }
 
-    public void setFigura(String figura) {
+    public void setFigura(RodzajFigury figura) {
         this.figura = figura;
     }
 }

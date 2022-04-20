@@ -6,6 +6,10 @@ import java.util.List;
 
 public class Krol extends Figura {
 
+    public Krol() {
+        setRodzajFigury(RodzajFigury.KROL);
+    }
+
     public void sprawdzMozliwyRuch(Szachownica szachownica, int polozenieX, int polozenieY, List<ParametryPola> mozliwyRuch) {
         Kolor kolorKrola = getKolor();
         Kolor kolorFiguryNaPolu = kolorFiguryNaPolu(szachownica, polozenieX, polozenieY);

@@ -7,6 +7,9 @@ import java.util.List;
 
 public class Pionek extends Figura {
 
+    public Pionek() {
+        setRodzajFigury(RodzajFigury.PIONEK);
+    }
 
     @Override
     public List<ParametryPola> podajMozliweRuchy(Szachownica szachownica) {

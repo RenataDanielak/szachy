@@ -15,21 +15,18 @@ public class Szachy implements Gra {
         pionek.setKolor(Kolor.BIALY);
         pionek.setPolozenieX(4);
         pionek.setPolozenieY(4);
-        pionek.setRodzajFigury(RodzajFigury.PIONEK);
         szachownica.getFigury().add(pionek);
 
         Pionek pionek1 = new Pionek();
         pionek1.setKolor(Kolor.CZARNY);
         pionek1.setPolozenieX(3);
         pionek1.setPolozenieY(5);
-        pionek1.setRodzajFigury(RodzajFigury.PIONEK);
         szachownica.getFigury().add(pionek1);
 
         Krol krolBialy = new Krol();
         krolBialy.setKolor(Kolor.BIALY);
         krolBialy.setPolozenieX(3);
         krolBialy.setPolozenieY(1);
-        krolBialy.setRodzajFigury(RodzajFigury.KROL);
         szachownica.getFigury().add(krolBialy);
     }
 

@@ -7,7 +7,6 @@ public class Figura {
     private int polozenieX;
     private int polozenieY;
     private Kolor kolor;
-    private RodzajFigury rodzajFigury;
 
     public int getPolozenieX() {
         return polozenieX;
@@ -34,12 +33,9 @@ public class Figura {
     }
 
     public RodzajFigury getRodzajFigury() {
-        return rodzajFigury;
+        return null;
     }
 
-    public void setRodzajFigury(RodzajFigury rodzajFigury) {
-        this.rodzajFigury = rodzajFigury;
-    }
 
     public List<ParametryPola> podajMozliweRuchy(Szachownica szachownica){
         List<ParametryPola> lista;

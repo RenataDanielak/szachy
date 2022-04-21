@@ -6,8 +6,9 @@ import java.util.List;
 
 public class Krol extends Figura {
 
-    public Krol() {
-        setRodzajFigury(RodzajFigury.KROL);
+    @Override
+    public RodzajFigury getRodzajFigury() {
+        return RodzajFigury.KROL;
     }
 
     public void sprawdzMozliwyRuch(Szachownica szachownica, int polozenieX, int polozenieY, List<ParametryPola> mozliwyRuch) {

@@ -7,8 +7,9 @@ import java.util.List;
 
 public class Pionek extends Figura {
 
-    public Pionek() {
-        setRodzajFigury(RodzajFigury.PIONEK);
+    @Override
+    public RodzajFigury getRodzajFigury() {
+        return RodzajFigury.PIONEK;
     }
 
     @Override

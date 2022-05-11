@@ -28,6 +28,18 @@ public class Szachy implements Gra {
         krolBialy.setPolozenieX(3);
         krolBialy.setPolozenieY(1);
         szachownica.getFigury().add(krolBialy);
+
+        Kon konBialy1 = new Kon();
+        konBialy1.setKolor(Kolor.BIALY);
+        konBialy1.setPolozenieX(3);
+        konBialy1.setPolozenieY(2);
+        szachownica.getFigury().add(konBialy1);
+
+        Wieza wiezaBiala1 = new Wieza();
+        wiezaBiala1.setKolor(Kolor.BIALY);
+        wiezaBiala1.setPolozenieX(5);
+        wiezaBiala1.setPolozenieY(5);
+        szachownica.getFigury().add(wiezaBiala1);
     }
 
     @Override

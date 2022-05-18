@@ -40,6 +40,12 @@ public class Szachy implements Gra {
         wiezaBiala1.setPolozenieX(5);
         wiezaBiala1.setPolozenieY(5);
         szachownica.getFigury().add(wiezaBiala1);
+
+        Laufer lauferCzarny1 = new Laufer();
+        lauferCzarny1.setKolor(Kolor.CZARNY);
+        lauferCzarny1.setPolozenieX(1);
+        lauferCzarny1.setPolozenieY(1);
+        szachownica.getFigury().add(lauferCzarny1);
     }
 
     @Override

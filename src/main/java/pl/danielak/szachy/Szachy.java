@@ -11,6 +11,10 @@ public class Szachy implements Gra {
 
     public Szachy (){
         szachownica = new Szachownica();
+       // for (int i = 0; i < pracownicy.length; i = i + 1) {
+
+        //}
+
         Pionek pionek = new Pionek();
         pionek.setKolor(Kolor.BIALY);
         pionek.setPolozenieX(4);
@@ -46,6 +50,12 @@ public class Szachy implements Gra {
         lauferCzarny1.setPolozenieX(1);
         lauferCzarny1.setPolozenieY(1);
         szachownica.getFigury().add(lauferCzarny1);
+
+        Krolowa krolowaCzarna = new Krolowa();
+        krolowaCzarna.setKolor(Kolor.CZARNY);
+        krolowaCzarna.setPolozenieX(6);
+        krolowaCzarna.setPolozenieY(6);
+        szachownica.getFigury().add(krolowaCzarna);
     }
 
     @Override

@@ -11,15 +11,60 @@ public class Szachy implements Gra {
 
     public Szachy (){
         szachownica = new Szachownica();
-       // for (int i = 0; i < pracownicy.length; i = i + 1) {
+        for (int i = 0; i < 8; i = i + 1) {
+            Pionek pionek = new Pionek();
+            pionek.setKolor(Kolor.BIALY);
+            pionek.setPolozenieX(i);
+            pionek.setPolozenieY(1);
+            szachownica.getFigury().add(pionek);
+        }
+        Wieza wiezaBiala1 = new Wieza();
+        wiezaBiala1.setKolor(Kolor.BIALY);
+        wiezaBiala1.setPolozenieX(0);
+        wiezaBiala1.setPolozenieY(0);
+        szachownica.getFigury().add(wiezaBiala1);
 
-        //}
+        Wieza wiezaBiala2 = new Wieza();
+        wiezaBiala2.setKolor(Kolor.BIALY);
+        wiezaBiala2.setPolozenieX(7);
+        wiezaBiala2.setPolozenieY(0);
+        szachownica.getFigury().add(wiezaBiala2);
 
-        Pionek pionek = new Pionek();
-        pionek.setKolor(Kolor.BIALY);
-        pionek.setPolozenieX(4);
-        pionek.setPolozenieY(4);
-        szachownica.getFigury().add(pionek);
+        Kon konBialy1 = new Kon();
+        konBialy1.setKolor(Kolor.BIALY);
+        konBialy1.setPolozenieX(1);
+        konBialy1.setPolozenieY(0);
+        szachownica.getFigury().add(konBialy1);
+
+        Kon konBialy2 = new Kon();
+        konBialy2.setKolor(Kolor.BIALY);
+        konBialy2.setPolozenieX(6);
+        konBialy2.setPolozenieY(0);
+        szachownica.getFigury().add(konBialy2);
+
+        Laufer lauferBialy1 = new Laufer();
+        lauferBialy1.setKolor(Kolor.BIALY);
+        lauferBialy1.setPolozenieX(2);
+        lauferBialy1.setPolozenieY(0);
+        szachownica.getFigury().add(lauferBialy1);
+
+        Laufer lauferBialy2 = new Laufer();
+        lauferBialy2.setKolor(Kolor.BIALY);
+        lauferBialy2.setPolozenieX(5);
+        lauferBialy2.setPolozenieY(0);
+        szachownica.getFigury().add(lauferBialy2);
+
+        Krolowa krolowaBiala = new Krolowa();
+        krolowaBiala.setKolor(Kolor.BIALY);
+        krolowaBiala.setPolozenieX(3);
+        krolowaBiala.setPolozenieY(0);
+        szachownica.getFigury().add(krolowaBiala);
+
+        Krol krolBialy = new Krol();
+        krolBialy.setKolor(Kolor.BIALY);
+        krolBialy.setPolozenieX(4);
+        krolBialy.setPolozenieY(0);
+        szachownica.getFigury().add(krolBialy);
 
         Pionek pionek1 = new Pionek();
         pionek1.setKolor(Kolor.CZARNY);
@@ -27,28 +72,10 @@ public class Szachy implements Gra {
         pionek1.setPolozenieY(5);
         szachownica.getFigury().add(pionek1);
 
-        Krol krolBialy = new Krol();
-        krolBialy.setKolor(Kolor.BIALY);
-        krolBialy.setPolozenieX(3);
-        krolBialy.setPolozenieY(1);
-        szachownica.getFigury().add(krolBialy);
-
-        Kon konBialy1 = new Kon();
-        konBialy1.setKolor(Kolor.BIALY);
-        konBialy1.setPolozenieX(3);
-        konBialy1.setPolozenieY(2);
-        szachownica.getFigury().add(konBialy1);
-
-        Wieza wiezaBiala1 = new Wieza();
-        wiezaBiala1.setKolor(Kolor.BIALY);
-        wiezaBiala1.setPolozenieX(5);
-        wiezaBiala1.setPolozenieY(5);
-        szachownica.getFigury().add(wiezaBiala1);
-
         Laufer lauferCzarny1 = new Laufer();
         lauferCzarny1.setKolor(Kolor.CZARNY);
         lauferCzarny1.setPolozenieX(1);
-        lauferCzarny1.setPolozenieY(1);
+        lauferCzarny1.setPolozenieY(6);
         szachownica.getFigury().add(lauferCzarny1);
 
         Krolowa krolowaCzarna = new Krolowa();

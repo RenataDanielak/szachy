@@ -20,7 +20,7 @@ public class Pionek extends Figura {
         int polozenieY = getPolozenieY();
         if (getKolor() == Kolor.BIALY){
             if (getPolozenieY() == 7){
-                return null;
+                return lista;
             }
            Kolor pytany = kolorFiguryNaPolu(szachownica,polozenieX,polozenieY+1);
             if( pytany == null) {
@@ -48,7 +48,7 @@ public class Pionek extends Figura {
 
         if (getKolor() == Kolor.CZARNY) {
             if (getPolozenieY() == 0) {
-                return null;
+                return lista;
             }
             Kolor pytany = kolorFiguryNaPolu(szachownica, polozenieX, polozenieY - 1);
             if (pytany == null) {

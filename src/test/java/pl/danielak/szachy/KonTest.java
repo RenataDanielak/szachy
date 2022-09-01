@@ -33,10 +33,11 @@ public class KonTest {
         kon.setKolor(Kolor.BIALY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+
         szachownica.getFigury().add(kon);
         List<ParametryPola> result;
         When:
-        result = kon.podajMozliweRuchy(szachownica);
+        result = kon.podajMozliweRuchy();
         Then:
         assertEquals(8, result.size());
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x + 1, y + 2, false));
@@ -47,6 +48,7 @@ public class KonTest {
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x + 1, y - 2, false));
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x + 2, y - 1, false));
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x - 2, y - 1, false));
+        assertEquals(true, result.contains(new ParametryPola(x+1, y+2, false)) );
     }
 
     private boolean sprawdzCzyListaZawieraElement(List<ParametryPola> lista, int polozenieX, int polozenieY, boolean zajetePole) {
@@ -74,7 +76,7 @@ public class KonTest {
         szachownica.getFigury().add(kon);
         List<ParametryPola> result;
         When:
-        result = kon.podajMozliweRuchy(szachownica);
+        result = kon.podajMozliweRuchy();
         Then:
         assertEquals(4, result.size());
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x+1, y+2, false));
@@ -101,7 +103,7 @@ public class KonTest {
         szachownica.getFigury().add(konObcy);
         List<ParametryPola> result;
         When:
-        result = kon.podajMozliweRuchy(szachownica);
+        result = kon.podajMozliweRuchy();
         Then:
         assertEquals(7, result.size());
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x + 1, y + 2, false));
@@ -132,7 +134,7 @@ public class KonTest {
         szachownica.getFigury().add(konObcy);
         List<ParametryPola> result;
         When:
-        result = kon.podajMozliweRuchy(szachownica);
+        result = kon.podajMozliweRuchy();
         Then:
         assertEquals(8, result.size());
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x + 1, y + 2, false));

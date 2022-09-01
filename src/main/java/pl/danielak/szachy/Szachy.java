@@ -34,6 +34,7 @@ public class Szachy implements Gra {
             pionek.setKolor(kolor);
             pionek.setPolozenieX(i);
             pionek.setPolozenieY(polozeniePionkow);
+            pionek.setSzachownica(szachownica);
             szachownica.getFigury().add(pionek);
         }
 
@@ -41,48 +42,56 @@ public class Szachy implements Gra {
         wieza1.setKolor(kolor);
         wieza1.setPolozenieX(0);
         wieza1.setPolozenieY(polozenieY);
+        wieza1.setSzachownica(szachownica);
         szachownica.getFigury().add(wieza1);
 
         Wieza wieza2 = new Wieza();
         wieza2.setKolor(kolor);
         wieza2.setPolozenieX(7);
         wieza2.setPolozenieY(polozenieY);
+        wieza2.setSzachownica(szachownica);
         szachownica.getFigury().add(wieza2);
 
         Kon kon1 = new Kon();
         kon1.setKolor(kolor);
         kon1.setPolozenieX(1);
         kon1.setPolozenieY(polozenieY);
+        kon1.setSzachownica(szachownica);
         szachownica.getFigury().add(kon1);
 
-        Kon kon2 = new Kon();
-        kon2.setKolor(kolor);
-        kon2.setPolozenieX(6);
-        kon2.setPolozenieY(polozenieY);
-        szachownica.getFigury().add(kon2);
+        //Kon kon2 = new Kon();
+        //kon2.setKolor(kolor);
+        //kon2.setPolozenieX(6);
+        //kon2.setPolozenieY(polozenieY);
+        //kon2.setSzachownica(szachownica);
+        //szachownica.getFigury().add(kon2);
 
         Laufer laufer1 = new Laufer();
         laufer1.setKolor(kolor);
         laufer1.setPolozenieX(2);
         laufer1.setPolozenieY(polozenieY);
+        laufer1.setSzachownica(szachownica);
         szachownica.getFigury().add(laufer1);
 
-        Laufer laufer2 = new Laufer();
-        laufer2.setKolor(kolor);
-        laufer2.setPolozenieX(5);
-        laufer2.setPolozenieY(polozenieY);
-        szachownica.getFigury().add(laufer2);
+        //Laufer laufer2 = new Laufer();
+        //laufer2.setKolor(kolor);
+        //laufer2.setPolozenieX(5);
+        //laufer2.setPolozenieY(polozenieY);
+        //laufer2.setSzachownica(szachownica);
+        //szachownica.getFigury().add(laufer2);
 
         Krolowa krolowa = new Krolowa();
         krolowa.setKolor(kolor);
         krolowa.setPolozenieX(3);
         krolowa.setPolozenieY(polozenieY);
+        krolowa.setSzachownica(szachownica);
         szachownica.getFigury().add(krolowa);
 
         Krol krol = new Krol();
         krol.setKolor(kolor);
         krol.setPolozenieX(4);
         krol.setPolozenieY(polozenieY);
+        krol.setSzachownica(szachownica);
         szachownica.getFigury().add(krol);
     }
     public Szachy () {
@@ -113,7 +122,7 @@ public class Szachy implements Gra {
             int pozycjaPionkaNaSzachownicyY = pozycjaPionkaNaSzachownicy.getPozycjaY();
             if (kolor == figura.getKolor() && pozycjaPoczatkowaX == pozycjaPionkaNaSzachownicyX && pozycjaPoczatkowaY == pozycjaPionkaNaSzachownicyY){
                 List<ParametryPolaDto> listaWynikowa = new ArrayList<>();
-                List <ParametryPola> lista = figura.podajMozliweRuchy(szachownica);
+                List <ParametryPola> lista = figura.podajMozliweRuchy();
                 for (int j = 0; j < lista.size(); j = j + 1 ){
                     ParametryPola parametryPola = lista.get(j);
                     ParametryPolaDto parametryPolaDto = new ParametryPolaDto( parametryPola.getPolozenieX(), parametryPola.getPolozenieY());
@@ -139,7 +148,7 @@ public class Szachy implements Gra {
         for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ){
             Figura figura = szachownica.getFigury().get(i);
             if (pozycjaPoczatkowaX == figura.getPolozenieX() && pozycjaPoczatkowaY == figura.getPolozenieY()){
-                 List<ParametryPola> mozliweRuchy = figura.podajMozliweRuchy(szachownica);
+                 List<ParametryPola> mozliweRuchy = figura.podajMozliweRuchy();
                  int pozycjaKoncowaX = pozycjaKoncowa.getPozycjaX();
                  int pozycjaKoncowaY = pozycjaKoncowa.getPozycjaY();
                 for (int j = 0; j < mozliweRuchy.size(); j = j + 1 ){
@@ -154,8 +163,7 @@ public class Szachy implements Gra {
                               }
                           }
                       }
-                       figura.setPolozenieX(pozycjaKoncowaX);
-                       figura.setPolozenieY(pozycjaKoncowaY);
+                      figura.wykonajRuch(pozycjaKoncowaY, pozycjaKoncowaX);
                        numerRuchu = numerRuchu +1;
                        return true;
                    }

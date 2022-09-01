@@ -35,4 +35,18 @@ public class ParametryPola {
     public void setZajete(boolean zajete) {
         this.zajete = zajete;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if ( this== o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ParametryPola that = (ParametryPola) o;
+
+        if (polozenieX != that.polozenieX) return false;
+        if (polozenieY != that.polozenieY) return false;
+        return zajete == that.zajete;
+    }
+
 }

@@ -4,9 +4,9 @@ import java.util.List;
 
 public class FiguraWielokierunkowa extends Figura{
 
-    protected void sprawdzMozliwyRuch(Szachownica szachownica, int polozenieX, int polozenieY, List<ParametryPola> mozliwyRuch) {
+    protected void sprawdzMozliwyRuch(int polozenieX, int polozenieY, List<ParametryPola> mozliwyRuch) {
         Kolor kolorFigury = getKolor();
-        Kolor kolorFiguryNaPolu = kolorFiguryNaPolu(szachownica, polozenieX, polozenieY);
+        Kolor kolorFiguryNaPolu = kolorFiguryNaPolu(polozenieX, polozenieY);
         if (polozenieX >= 0 && polozenieX < 8 && polozenieY >= 0 && polozenieY < 8) {
             if (kolorFiguryNaPolu == null) {
                 ParametryPola polozenieKoncowe = new ParametryPola(polozenieX, polozenieY, false);
@@ -18,4 +18,5 @@ public class FiguraWielokierunkowa extends Figura{
             }
         }
     }
+
 }

@@ -37,7 +37,7 @@ class PionekTest {
             szachownica.getFigury().add(pionek);
             List<ParametryPola> result;
         When:
-            result = pionek.podajMozliweRuchy(szachownica);
+            result = pionek.podajMozliweRuchy();
         Then:
             assertEquals(1, result.size());
             assertEquals(true, sprawdzCzyListaZawieraElement(result, x, y+1, false));
@@ -68,7 +68,7 @@ class PionekTest {
         szachownica.getFigury().add(pionek);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(2, result.size());
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x, y+1, false));
@@ -89,7 +89,7 @@ class PionekTest {
         szachownica.getFigury().add(pionek);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(0, result.size());
     }
@@ -113,7 +113,7 @@ class PionekTest {
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(0, result.size());
     }
@@ -137,7 +137,7 @@ class PionekTest {
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(0, result.size());
     }
@@ -161,7 +161,7 @@ class PionekTest {
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(0, result.size());
     }
@@ -185,7 +185,7 @@ class PionekTest {
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(0, result.size());
     }
@@ -209,7 +209,7 @@ class PionekTest {
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(2, result.size());
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x+1, y+1, true));
@@ -235,7 +235,7 @@ class PionekTest {
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(1, result.size());
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x, y+1, false));
@@ -255,7 +255,7 @@ class PionekTest {
         szachownica.getFigury().add(pionek);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(1, result.size());
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x, y-1, false));
@@ -274,7 +274,7 @@ class PionekTest {
         szachownica.getFigury().add(pionek);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(2, result.size());
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x, y-1, false));
@@ -295,7 +295,7 @@ class PionekTest {
         szachownica.getFigury().add(pionek);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(0, result.size());
     }
@@ -318,7 +318,7 @@ class PionekTest {
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(0, result.size());
     }
@@ -342,7 +342,7 @@ class PionekTest {
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(0, result.size());
     }
@@ -365,7 +365,7 @@ class PionekTest {
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(0, result.size());
     }
@@ -389,7 +389,7 @@ class PionekTest {
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(0, result.size());
     }
@@ -412,7 +412,7 @@ class PionekTest {
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(2, result.size());
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x-1, y-1, true));
@@ -438,7 +438,7 @@ class PionekTest {
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
         When:
-        result = pionek.podajMozliweRuchy(szachownica);
+        result = pionek.podajMozliweRuchy();
         Then:
         assertEquals(1, result.size());
         assertEquals(true, sprawdzCzyListaZawieraElement(result, x, y-1, false));

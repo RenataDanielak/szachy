@@ -9,19 +9,19 @@ public class Kon extends FiguraWielokierunkowa {
         return RodzajFigury.KON;
     }
 
-    public List<ParametryPola> podajMozliweRuchy(Szachownica szachownica) {
+    public List<ParametryPola> podajMozliweRuchy() {
         List<ParametryPola> lista;
         lista = new ArrayList<>();
         int polozenieX = getPolozenieX();
         int polozenieY = getPolozenieY();
-        sprawdzMozliwyRuch(szachownica, polozenieX-1, polozenieY + 2, lista);
-        sprawdzMozliwyRuch(szachownica, polozenieX + 1, polozenieY + 2, lista);
-        sprawdzMozliwyRuch(szachownica, polozenieX - 1, polozenieY - 2, lista);
-        sprawdzMozliwyRuch(szachownica, polozenieX + 1, polozenieY - 2, lista);
-        sprawdzMozliwyRuch(szachownica, polozenieX-2, polozenieY + 1, lista);
-        sprawdzMozliwyRuch(szachownica, polozenieX + 2, polozenieY + 1, lista);
-        sprawdzMozliwyRuch(szachownica, polozenieX + 2, polozenieY - 1, lista);
-        sprawdzMozliwyRuch(szachownica, polozenieX - 2, polozenieY - 1, lista);
+        sprawdzMozliwyRuch(polozenieX-1, polozenieY + 2, lista);
+        sprawdzMozliwyRuch(polozenieX + 1, polozenieY + 2, lista);
+        sprawdzMozliwyRuch( polozenieX - 1, polozenieY - 2, lista);
+        sprawdzMozliwyRuch(polozenieX + 1, polozenieY - 2, lista);
+        sprawdzMozliwyRuch(polozenieX-2, polozenieY + 1, lista);
+        sprawdzMozliwyRuch(polozenieX + 2, polozenieY + 1, lista);
+        sprawdzMozliwyRuch(polozenieX + 2, polozenieY - 1, lista);
+        sprawdzMozliwyRuch(polozenieX - 2, polozenieY - 1, lista);
 
         return lista;
     }

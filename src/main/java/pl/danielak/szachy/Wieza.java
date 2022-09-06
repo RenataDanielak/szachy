@@ -14,6 +14,11 @@ public class Wieza extends FiguraRuszajacaSieOWielePol {
     public int getNumerRuchuWiezy() {
         return numerRuchuWiezy;
     }
+
+    public void setNumerRuchuWiezy(int numerRuchuWiezy) {
+        this.numerRuchuWiezy = numerRuchuWiezy;
+    }
+
     @Override
     public void wykonajRuch(int polozenieKoncoweY, int polozenieKoncoweX) {
         super.wykonajRuch(polozenieKoncoweY, polozenieKoncoweX);

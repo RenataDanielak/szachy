@@ -35,6 +35,7 @@ class PionekTest {
             Szachownica szachownica;
             szachownica = new Szachownica();
             szachownica.getFigury().add(pionek);
+            pionek.setSzachownica(szachownica);
             List<ParametryPola> result;
         When:
             result = pionek.podajMozliweRuchy();
@@ -66,6 +67,7 @@ class PionekTest {
         Szachownica szachownica;
         szachownica = new Szachownica();
         szachownica.getFigury().add(pionek);
+        pionek.setSzachownica(szachownica);
         List<ParametryPola> result;
         When:
         result = pionek.podajMozliweRuchy();
@@ -87,6 +89,7 @@ class PionekTest {
         Szachownica szachownica;
         szachownica = new Szachownica();
         szachownica.getFigury().add(pionek);
+        pionek.setSzachownica(szachownica);
         List<ParametryPola> result;
         When:
         result = pionek.podajMozliweRuchy();
@@ -109,6 +112,8 @@ class PionekTest {
         pionekObcy.setKolor(Kolor.BIALY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
+        pionekObcy.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
@@ -133,6 +138,8 @@ class PionekTest {
         pionekObcy.setKolor(Kolor.CZARNY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
+        pionekObcy.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
@@ -157,6 +164,8 @@ class PionekTest {
         pionekObcy.setKolor(Kolor.BIALY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
+        pionekObcy.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
@@ -181,6 +190,8 @@ class PionekTest {
         pionekObcy.setKolor(Kolor.CZARNY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
+        pionekObcy.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
@@ -205,6 +216,8 @@ class PionekTest {
         pionekObcy.setKolor(Kolor.CZARNY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
+        pionekObcy.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
@@ -231,6 +244,8 @@ class PionekTest {
         pionekObcy.setKolor(Kolor.BIALY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
+        pionekObcy.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
@@ -252,6 +267,7 @@ class PionekTest {
         pionek.setPolozenieX(x);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         List<ParametryPola> result;
         When:
@@ -271,6 +287,7 @@ class PionekTest {
         pionek.setKolor(Kolor.CZARNY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         List<ParametryPola> result;
         When:
@@ -292,6 +309,7 @@ class PionekTest {
         pionek.setKolor(Kolor.CZARNY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         List<ParametryPola> result;
         When:
@@ -314,6 +332,8 @@ class PionekTest {
         pionekObcy.setKolor(Kolor.CZARNY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
+        pionekObcy.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
@@ -338,6 +358,8 @@ class PionekTest {
         pionekObcy.setKolor(Kolor.BIALY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
+        pionekObcy.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
@@ -361,6 +383,8 @@ class PionekTest {
         pionekObcy.setKolor(Kolor.CZARNY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
+        pionekObcy.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
@@ -385,6 +409,8 @@ class PionekTest {
         pionekObcy.setKolor(Kolor.BIALY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
+        pionekObcy.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
@@ -408,6 +434,8 @@ class PionekTest {
         pionekObcy.setKolor(Kolor.BIALY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
+        pionekObcy.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;
@@ -434,6 +462,8 @@ class PionekTest {
         pionekObcy.setKolor(Kolor.CZARNY);
         Szachownica szachownica;
         szachownica = new Szachownica();
+        pionek.setSzachownica(szachownica);
+        pionekObcy.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
         szachownica.getFigury().add(pionekObcy);
         List<ParametryPola> result;

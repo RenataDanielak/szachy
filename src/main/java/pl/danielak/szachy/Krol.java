@@ -8,6 +8,14 @@ public class Krol extends FiguraWielokierunkowa {
 
     private int numerRuchuKrola = 0;
 
+    public int getNumerRuchuKrola() {
+        return numerRuchuKrola;
+    }
+
+    public void setNumerRuchuKrola(int numerRuchuKrola) {
+        this.numerRuchuKrola = numerRuchuKrola;
+    }
+
     @Override
     public RodzajFigury getRodzajFigury() {
         return RodzajFigury.KROL;

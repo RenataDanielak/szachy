@@ -33,7 +33,7 @@ public class KonTest {
         kon.setKolor(Kolor.BIALY);
         Szachownica szachownica;
         szachownica = new Szachownica();
-
+        kon.setSzachownica(szachownica);
         szachownica.getFigury().add(kon);
         List<ParametryPola> result;
         When:
@@ -74,6 +74,7 @@ public class KonTest {
         Szachownica szachownica;
         szachownica = new Szachownica();
         szachownica.getFigury().add(kon);
+        kon.setSzachownica(szachownica);
         List<ParametryPola> result;
         When:
         result = kon.podajMozliweRuchy();
@@ -101,6 +102,8 @@ public class KonTest {
         szachownica = new Szachownica();
         szachownica.getFigury().add(kon);
         szachownica.getFigury().add(konObcy);
+        kon.setSzachownica(szachownica);
+        konObcy.setSzachownica(szachownica);
         List<ParametryPola> result;
         When:
         result = kon.podajMozliweRuchy();
@@ -132,6 +135,8 @@ public class KonTest {
         szachownica = new Szachownica();
         szachownica.getFigury().add(kon);
         szachownica.getFigury().add(konObcy);
+        kon.setSzachownica(szachownica);
+        konObcy.setSzachownica(szachownica);
         List<ParametryPola> result;
         When:
         result = kon.podajMozliweRuchy();

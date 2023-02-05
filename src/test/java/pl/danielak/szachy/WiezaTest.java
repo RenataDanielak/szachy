@@ -8,7 +8,6 @@ import java.util.List;
 public class WiezaTest {
 
     Wieza wiezaBiala;
-    Wieza wiezaCzarna;
 
     @Test
     void getRodzajFigury(){

@@ -1,14 +1,12 @@
 package pl.danielak.szachy.warstwaSieciowa;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.web.bind.annotation.*;
-import pl.danielak.szachy.GlupiaGra;
 import pl.danielak.szachy.Gra;
 import pl.danielak.szachy.Szachy;
 import pl.danielak.szachy.dto.ParametryPolaDto;
+import pl.danielak.szachy.dto.ParametryRuchuDto;
 import pl.danielak.szachy.dto.PionekDto;
 
-import java.lang.reflect.Parameter;
 import java.util.List;
 
 @CrossOrigin
@@ -33,11 +31,10 @@ public class SzachyController {
         return gra.podajMozliweRuchy(start);
     }
 
-    @GetMapping("/ruch")
-    public boolean ruch(@RequestParam int startX, @RequestParam int startY,
-                                       @RequestParam int koniecX, @RequestParam int koniecY) {
-        ParametryPolaDto start = new ParametryPolaDto(startX, startY);
-        ParametryPolaDto koniec = new ParametryPolaDto(koniecX, koniecY);
+    @PostMapping("/ruch")
+    public boolean ruch(@RequestBody ParametryRuchuDto parametryRuchu) {
+        ParametryPolaDto start = parametryRuchu.getStart();
+        ParametryPolaDto koniec = parametryRuchu.getKoniec();
 
         return gra.wykonajRuch(start, koniec);
     }

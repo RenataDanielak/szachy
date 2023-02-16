@@ -59,12 +59,12 @@ public class Szachy implements Gra {
         kon1.setSzachownica(szachownica);
         szachownica.getFigury().add(kon1);
 
-        //Kon kon2 = new Kon();
-        //kon2.setKolor(kolor);
-        //kon2.setPolozenieX(6);
-        //kon2.setPolozenieY(polozenieY);
-        //kon2.setSzachownica(szachownica);
-        //szachownica.getFigury().add(kon2);
+        Kon kon2 = new Kon();
+        kon2.setKolor(kolor);
+        kon2.setPolozenieX(6);
+        kon2.setPolozenieY(polozenieY);
+        kon2.setSzachownica(szachownica);
+        szachownica.getFigury().add(kon2);
 
         Laufer laufer1 = new Laufer();
         laufer1.setKolor(kolor);
@@ -73,12 +73,12 @@ public class Szachy implements Gra {
         laufer1.setSzachownica(szachownica);
         szachownica.getFigury().add(laufer1);
 
-        //Laufer laufer2 = new Laufer();
-        //laufer2.setKolor(kolor);
-        //laufer2.setPolozenieX(5);
-        //laufer2.setPolozenieY(polozenieY);
-        //laufer2.setSzachownica(szachownica);
-        //szachownica.getFigury().add(laufer2);
+        Laufer laufer2 = new Laufer();
+        laufer2.setKolor(kolor);
+        laufer2.setPolozenieX(5);
+        laufer2.setPolozenieY(polozenieY);
+        laufer2.setSzachownica(szachownica);
+        szachownica.getFigury().add(laufer2);
 
         Krolowa krolowa = new Krolowa();
         krolowa.setKolor(kolor);
@@ -109,6 +109,53 @@ public class Szachy implements Gra {
         }
         return lista;
     }
+
+    public Szachownica szachownicaTestowa (){
+        Szachownica szachownicaTestowa = new Szachownica();
+        List<Figura> lista = new ArrayList<>();
+        for (int j = 0; j < szachownica.getFigury().size(); j = j + 1 ){
+            Figura figura = szachownica.getFigury().get(j);
+            RodzajFigury rodzajFigury = figura.getRodzajFigury();
+            int pozycjaX = figura.getPolozenieX();
+            int pozycjaY = figura.getPolozenieY();
+            Kolor kolor = figura.getKolor();
+            Figura figuraNaSzachownicyTestowej;
+            if(rodzajFigury == RodzajFigury.PIONEK){
+                figuraNaSzachownicyTestowej = new Pionek();
+            }
+            else if(rodzajFigury == RodzajFigury.KON){
+                figuraNaSzachownicyTestowej = new Kon();
+            }
+            else if(rodzajFigury == RodzajFigury.KROL){
+                Krol krolNaSzachownicyTestowej = new Krol();
+                Krol krol = (Krol) figura;
+                int numerRuchu = krol.getNumerRuchuKrola();
+                krolNaSzachownicyTestowej.setNumerRuchuKrola(numerRuchu);
+                figuraNaSzachownicyTestowej = krolNaSzachownicyTestowej;
+            }
+            else if(rodzajFigury == RodzajFigury.KROLOWA){
+                figuraNaSzachownicyTestowej = new Krolowa();
+            }
+            else if(rodzajFigury == RodzajFigury.LAUFER){
+                figuraNaSzachownicyTestowej = new Laufer();
+            }
+            else {
+                Wieza wiezaNaSzachownicyTestowej = new Wieza();
+                Wieza wieza = (Wieza) figura;
+                int numerRuchu = wieza.getNumerRuchuWiezy();
+                wiezaNaSzachownicyTestowej.setNumerRuchuWiezy(numerRuchu);
+                figuraNaSzachownicyTestowej = wiezaNaSzachownicyTestowej;
+            }
+            figuraNaSzachownicyTestowej.setPolozenieX(pozycjaX);
+            figuraNaSzachownicyTestowej.setPolozenieY(pozycjaY);
+            figuraNaSzachownicyTestowej.setKolor(kolor);
+            figuraNaSzachownicyTestowej.setSzachownica(szachownicaTestowa);
+            lista.add(figuraNaSzachownicyTestowej);
+        }
+        szachownicaTestowa.setFigury(lista);
+
+    return szachownicaTestowa;
+}
 
     @Override
     public List<ParametryPolaDto> podajMozliweRuchy(ParametryPolaDto pozycjaPoczatkowa) {

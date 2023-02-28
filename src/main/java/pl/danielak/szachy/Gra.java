@@ -11,6 +11,8 @@ public interface Gra {
 
     List<ParametryPolaDto> podajMozliweRuchy(ParametryPolaDto pozycjaPoczatkowa);
 
-    boolean wykonajRuch(ParametryPolaDto pozycjaPoczatkowa, ParametryPolaDto pozycjaKoncowa);
+    TypRuchu wykonajRuch(ParametryPolaDto pozycjaPoczatkowa, ParametryPolaDto pozycjaKoncowa);
+
+    void rozpocznijGreOdNowa ();
 
 }

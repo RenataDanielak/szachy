@@ -58,7 +58,7 @@ public class GlupiaGra implements Gra{
     }
 
     @Override
-    public boolean wykonajRuch(ParametryPolaDto pozycjaPoczatkowa, ParametryPolaDto pozycjaKoncowa) {
+    public TypRuchu wykonajRuch(ParametryPolaDto pozycjaPoczatkowa, ParametryPolaDto pozycjaKoncowa) {
         if (pozycjaPoczatkowa.getPozycjaX() == x && pozycjaPoczatkowa.getPozycjaY() == y) {
             List<ParametryPolaDto> lista = podajMozliweRuchy(pozycjaPoczatkowa);
             for (int i = 0; i < lista.size(); i = i +1){
@@ -69,11 +69,16 @@ public class GlupiaGra implements Gra{
                 if ((pozycjaProponowanaX == pozycjaKoncowaX) && (pozycjaProponowanaY == pozycjaKoncowaY)){
                     x = pozycjaKoncowa.getPozycjaX();
                     y = pozycjaKoncowa.getPozycjaY();
-                    return true;
+                    return TypRuchu.ZWYKLYRUCH;
                 }
             }
         }
-        return false;
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public void rozpocznijGreOdNowa() {
+
     }
 
 }

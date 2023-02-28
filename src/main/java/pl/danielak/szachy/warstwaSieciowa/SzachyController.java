@@ -2,7 +2,9 @@ package pl.danielak.szachy.warstwaSieciowa;
 
 import org.springframework.web.bind.annotation.*;
 import pl.danielak.szachy.Gra;
+import pl.danielak.szachy.Szachownica;
 import pl.danielak.szachy.Szachy;
+import pl.danielak.szachy.TypRuchu;
 import pl.danielak.szachy.dto.ParametryPolaDto;
 import pl.danielak.szachy.dto.ParametryRuchuDto;
 import pl.danielak.szachy.dto.PionekDto;
@@ -32,10 +34,14 @@ public class SzachyController {
     }
 
     @PostMapping("/ruch")
-    public boolean ruch(@RequestBody ParametryRuchuDto parametryRuchu) {
+    public TypRuchu ruch(@RequestBody ParametryRuchuDto parametryRuchu) {
         ParametryPolaDto start = parametryRuchu.getStart();
         ParametryPolaDto koniec = parametryRuchu.getKoniec();
-
         return gra.wykonajRuch(start, koniec);
+    }
+
+    @PostMapping("/rozpocznijGreOdNowa")
+    public void rozpocznijGreOdNowa(){
+        gra.rozpocznijGreOdNowa();
     }
 }

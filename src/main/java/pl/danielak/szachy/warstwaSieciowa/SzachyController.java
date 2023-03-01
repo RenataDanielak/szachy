@@ -2,12 +2,12 @@ package pl.danielak.szachy.warstwaSieciowa;
 
 import org.springframework.web.bind.annotation.*;
 import pl.danielak.szachy.Gra;
-import pl.danielak.szachy.Szachownica;
 import pl.danielak.szachy.Szachy;
 import pl.danielak.szachy.TypRuchu;
 import pl.danielak.szachy.dto.ParametryPolaDto;
 import pl.danielak.szachy.dto.ParametryRuchuDto;
 import pl.danielak.szachy.dto.PionekDto;
+import pl.danielak.szachy.wirtualnyPrzeciwnik.WirtualnyPrzeciwnik;
 
 import java.util.List;
 
@@ -17,9 +17,11 @@ import java.util.List;
 public class SzachyController {
 
     Gra gra;
+    WirtualnyPrzeciwnik witrualnyPrzeciwnik;
 
     public SzachyController() {
         gra = new Szachy();
+        witrualnyPrzeciwnik = new WirtualnyPrzeciwnik((Szachy)gra);
     }
 
     @GetMapping("/plansza")
@@ -43,5 +45,11 @@ public class SzachyController {
     @PostMapping("/rozpocznijGreOdNowa")
     public void rozpocznijGreOdNowa(){
         gra.rozpocznijGreOdNowa();
+    }
+
+    @PostMapping("/ruchWirtualnegoPrzeciwnika")
+    public ParametryRuchuDto wykonajRuch() {
+        witrualnyPrzeciwnik.wykonajRuch();
+        return new ParametryRuchuDto();
     }
 }

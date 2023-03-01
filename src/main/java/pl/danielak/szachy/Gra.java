@@ -2,6 +2,7 @@ package pl.danielak.szachy;
 
 import pl.danielak.szachy.dto.ParametryPolaDto;
 import pl.danielak.szachy.dto.PionekDto;
+
 import java.util.List;
 
 
@@ -14,5 +15,4 @@ public interface Gra {
     TypRuchu wykonajRuch(ParametryPolaDto pozycjaPoczatkowa, ParametryPolaDto pozycjaKoncowa);
 
     void rozpocznijGreOdNowa ();
-
 }

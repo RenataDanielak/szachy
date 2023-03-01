@@ -380,6 +380,7 @@ public class Szachy implements Gra {
     }
 
 
+
     //3. Wykonaj ruch przez wirtualnego przeciwnika- ta fukcja zwraca pozycje poczatkowa i koncowa figury ktora wykonala ruch
 
 }

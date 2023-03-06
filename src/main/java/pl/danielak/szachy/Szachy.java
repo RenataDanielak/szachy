@@ -228,17 +228,15 @@ public class Szachy implements Gra {
         Kolor kolor = kolejnoscRuchuFigurPodWzgledemKoloru(numerRuchu);
         for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ){
             Figura figura = szachownica.getFigury().get(i);
-            ParametryPolaDto pozycjaPionkaNaSzachownicy = new ParametryPolaDto(figura.getPolozenieX(), figura.getPolozenieY());
-            int pozycjaPionkaNaSzachownicyX = pozycjaPionkaNaSzachownicy.getPozycjaX();
-            int pozycjaPionkaNaSzachownicyY = pozycjaPionkaNaSzachownicy.getPozycjaY();
-            ParametryPola pozycjaPoczatkowa = new ParametryPola(pozycjaPionkaNaSzachownicyX, pozycjaPionkaNaSzachownicyY, true);
+            int pozycjaPionkaNaSzachownicyX = figura.getPolozenieX();
+            int pozycjaPionkaNaSzachownicyY = figura.getPolozenieY();
             if (kolor == figura.getKolor() && pozycjaPoczatkowaX == pozycjaPionkaNaSzachownicyX && pozycjaPoczatkowaY == pozycjaPionkaNaSzachownicyY){
+                ParametryPola pozycjaPoczatkowa = new ParametryPola(pozycjaPoczatkowaX, pozycjaPoczatkowaY, true);
                 List<ParametryPolaDto> listaWynikowa = new ArrayList<>();
                 List <ParametryPola> lista = figura.podajMozliweRuchy();
                 List <ParametryPola> listaMozliwychRuchowZUwglednieniemKrola = mozliweRuchyZUwglednieniemPozycjiKrola(pozycjaPoczatkowa, lista);
                 for (int j = 0; j < listaMozliwychRuchowZUwglednieniemKrola.size(); j = j + 1 ){
-                    ParametryPola parametryPola = listaMozliwychRuchowZUwglednieniemKrola.get(j);
-                    ParametryPolaDto parametryPolaDto = new ParametryPolaDto( parametryPola.getPolozenieX(), parametryPola.getPolozenieY());
+                    ParametryPolaDto parametryPolaDto = new ParametryPolaDto( listaMozliwychRuchowZUwglednieniemKrola.get(j).getPolozenieX(), listaMozliwychRuchowZUwglednieniemKrola.get(j).getPolozenieY());
                     listaWynikowa.add(parametryPolaDto);
                 }
                 return listaWynikowa;
@@ -363,29 +361,20 @@ public class Szachy implements Gra {
 
     @Override
     public TypRuchu wykonajRuch(ParametryPolaDto pozycjaPoczatkowa, ParametryPolaDto pozycjaKoncowa) {
-        int pozycjaPoczatkowaX = pozycjaPoczatkowa.getPozycjaX();
-        int pozycjaPoczatkowaY = pozycjaPoczatkowa.getPozycjaY();
         for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ){
             Figura figura = szachownica.getFigury().get(i);
-            if (pozycjaPoczatkowaX == figura.getPolozenieX() && pozycjaPoczatkowaY == figura.getPolozenieY()){
-                List<ParametryPola> mozliweRuchy = figura.podajMozliweRuchy();
-                ParametryPola pozycja = new ParametryPola(pozycjaPoczatkowaX, pozycjaPoczatkowaY, true);
+            if (pozycjaPoczatkowa.getPozycjaX() == figura.getPolozenieX() && pozycjaPoczatkowa.getPozycjaY() == figura.getPolozenieY()){
+                List<ParametryPolaDto> mozliweRuchy = podajMozliweRuchy(pozycjaPoczatkowa);
                 int pozycjaKoncowaX = pozycjaKoncowa.getPozycjaX();
                 int pozycjaKoncowaY = pozycjaKoncowa.getPozycjaY();
-                List <ParametryPola> listaMozliwychRuchowZUwglednieniemKrola = mozliweRuchyZUwglednieniemPozycjiKrola(pozycja, mozliweRuchy);
-                for (int j = 0; j < listaMozliwychRuchowZUwglednieniemKrola.size(); j = j + 1 ){
-                   if(pozycjaKoncowaX == listaMozliwychRuchowZUwglednieniemKrola.get(j).getPolozenieX() && pozycjaKoncowaY == listaMozliwychRuchowZUwglednieniemKrola.get(j).getPolozenieY()) {
-                      boolean zajete = listaMozliwychRuchowZUwglednieniemKrola.get(j).isZajete();
-                      if (zajete == true){
-                          for (int k = 0; k < szachownica.getFigury().size(); k = k + 1 ){
-                              int polozenieX = szachownica.getFigury().get(k).getPolozenieX();
-                              int polozenieY = szachownica.getFigury().get(k).getPolozenieY();
-                              if (polozenieX == pozycjaKoncowaX && polozenieY == pozycjaKoncowaY){
-                                  Figura removedStr = szachownica.getFigury().remove(k);
-                              }
-                          }
-                      }
-                      figura.wykonajRuch(pozycjaKoncowaY, pozycjaKoncowaX);
+                for (int j = 0; j < mozliweRuchy.size(); j = j + 1 ){
+                   if(pozycjaKoncowaX == mozliweRuchy.get(j).getPozycjaX() && pozycjaKoncowaY == mozliweRuchy.get(j).getPozycjaY()) {
+                       for (int k = 0; k < szachownica.getFigury().size(); k = k + 1 ){
+                           if(szachownica.getFigury().get(k).getPolozenieX() == pozycjaKoncowaX && szachownica.getFigury().get(k).getPolozenieY() == pozycjaKoncowaY){
+                               szachownica.getFigury().remove(k);
+                           }
+                       }
+                       figura.wykonajRuch(pozycjaKoncowaY, pozycjaKoncowaX);
                        numerRuchu = numerRuchu +1;
                        return typRuchu(figura.getKolor());
                    }

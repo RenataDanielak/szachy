@@ -10,6 +10,14 @@ public class Szachy implements Gra {
     private Szachownica szachownica;
     private int numerRuchu = 0;
 
+    public Szachownica getSzachownica() {
+        return szachownica;
+    }
+
+    public void setSzachownica(Szachownica szachownica) {
+        this.szachownica = szachownica;
+    }
+
     public int getNumerRuchu() {
         return numerRuchu;
     }
@@ -142,8 +150,13 @@ public class Szachy implements Gra {
         ustawieniePionkowNaSzachownicy();
         //ustawieniePionkowNaSzachownicy(Kolor.CZARNY);
     }
+
     @Override
     public List<PionekDto> listaPionkow() {
+        return listaPionkow(this.szachownica);
+    }
+
+    public List<PionekDto> listaPionkow(Szachownica szachownica) {
         List<PionekDto> lista = new ArrayList<>();
         for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ){
             Figura figura = szachownica.getFigury().get(i);
@@ -154,6 +167,10 @@ public class Szachy implements Gra {
     }
 
     public Szachownica szachownicaTestowa (){
+        return szachownicaTestowa(this.szachownica);
+    }
+
+    public Szachownica szachownicaTestowa (Szachownica szachownica){
         Szachownica szachownicaTestowa = new Szachownica();
         List<Figura> lista = new ArrayList<>();
         for (int j = 0; j < szachownica.getFigury().size(); j = j + 1 ){
@@ -200,9 +217,12 @@ public class Szachy implements Gra {
     return szachownicaTestowa;
 }
 
-
     @Override
     public List<ParametryPolaDto> podajMozliweRuchy(ParametryPolaDto pozycjaPoczatkowaDto) {
+        return podajMozliweRuchy(pozycjaPoczatkowaDto, this.szachownica);
+    }
+
+    public List<ParametryPolaDto> podajMozliweRuchy(ParametryPolaDto pozycjaPoczatkowaDto, Szachownica szachownica) {
         int pozycjaPoczatkowaX = pozycjaPoczatkowaDto.getPozycjaX();
         int pozycjaPoczatkowaY = pozycjaPoczatkowaDto.getPozycjaY();
         Kolor kolor = kolejnoscRuchuFigurPodWzgledemKoloru(numerRuchu);
@@ -247,18 +267,19 @@ public class Szachy implements Gra {
                         polozenieKrolaX = szachownicaTestowa.getFigury().get(j).getPolozenieX();
                         polozenieKrolaY = szachownicaTestowa.getFigury().get(j).getPolozenieY();
                     }
-                    for (int k = 0; k < szachownicaTestowa.getFigury().size(); k = k + 1 ) {
-                        List<ParametryPola> mozliweRuchyPrzeciwnegoKoloru = szachownicaTestowa.getFigury().get(k).podajMozliweRuchy();
-                        for (int l = 0; l < mozliweRuchyPrzeciwnegoKoloru.size(); l = l + 1 ) {
-                            boolean zajete = mozliweRuchyPrzeciwnegoKoloru.get(l).isZajete();
-                            if(zajete){
-                                if(polozenieKrolaX == mozliweRuchyPrzeciwnegoKoloru.get(l).getPolozenieX() && polozenieKrolaY == mozliweRuchyPrzeciwnegoKoloru.get(l).getPolozenieY()){
-                                    return false;
-                                }
+                }
+                for (int k = 0; k < szachownicaTestowa.getFigury().size(); k = k + 1 ) {
+                    List<ParametryPola> mozliweRuchyPrzeciwnegoKoloru = szachownicaTestowa.getFigury().get(k).podajMozliweRuchy();
+                    for (int l = 0; l < mozliweRuchyPrzeciwnegoKoloru.size(); l = l + 1 ) {
+                        boolean zajete = mozliweRuchyPrzeciwnegoKoloru.get(l).isZajete();
+                        if(zajete){
+                            if(polozenieKrolaX == mozliweRuchyPrzeciwnegoKoloru.get(l).getPolozenieX() && polozenieKrolaY == mozliweRuchyPrzeciwnegoKoloru.get(l).getPolozenieY()){
+                                return false;
                             }
                         }
                     }
                 }
+
             }
         }
         return true;
@@ -277,14 +298,13 @@ public class Szachy implements Gra {
         return lista;
     }
 
-    public boolean sprawdzCzyBijeKrola (Kolor kolor){
-        Szachownica szachownicaTestowa = szachownicaTestowa();
-        for (int i = 0; i < szachownicaTestowa.getFigury().size(); i = i + 1 ) {
-            if(szachownicaTestowa.getFigury().get(i).getRodzajFigury() == RodzajFigury.KROL && szachownicaTestowa.getFigury().get(i).getKolor() != kolor){
-                int polozenieKrolaX = szachownicaTestowa.getFigury().get(i).getPolozenieX();
-                int polozenieKrolaY = szachownicaTestowa.getFigury().get(i).getPolozenieY();
-                for (int j = 0; j < szachownicaTestowa.getFigury().size(); j = j + 1 ) {
-                    List<ParametryPola> mozliweRuchy = szachownicaTestowa.getFigury().get(j).podajMozliweRuchy();
+    public boolean sprawdzCzyBijeKrola (Kolor kolor, Szachownica szachownica){
+        for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
+            if(szachownica.getFigury().get(i).getRodzajFigury() == RodzajFigury.KROL && szachownica.getFigury().get(i).getKolor() != kolor){
+                int polozenieKrolaX = szachownica.getFigury().get(i).getPolozenieX();
+                int polozenieKrolaY = szachownica.getFigury().get(i).getPolozenieY();
+                for (int j = 0; j < szachownica.getFigury().size(); j = j + 1 ) {
+                    List<ParametryPola> mozliweRuchy = szachownica.getFigury().get(j).podajMozliweRuchy();
                     for (int k = 0; k < mozliweRuchy.size(); k = k + 1 ) {
                         if(mozliweRuchy.get(k).isZajete()){
                             if(mozliweRuchy.get(k).getPolozenieX() == polozenieKrolaX && mozliweRuchy.get(k).getPolozenieY() == polozenieKrolaY){
@@ -299,12 +319,11 @@ public class Szachy implements Gra {
         return false;
     }
 
-    public boolean sprawdzCzyPrzeciwnikMozeWykonacRuch (Kolor kolor){
-        Szachownica szachownicaTestowa = szachownicaTestowa();
-        for (int i = 0; i < szachownicaTestowa.getFigury().size(); i = i + 1 ) {
-            if(szachownicaTestowa.getFigury().get(i).getKolor() != kolor){
-                ParametryPola pozycjaPoczatkowa = new ParametryPola(szachownicaTestowa.getFigury().get(i).getPolozenieX(), szachownicaTestowa.getFigury().get(i).getPolozenieY(), true);
-                List<ParametryPola> mozliweRuchyZUwzglednieniemPozycjiKrola = mozliweRuchyZUwglednieniemPozycjiKrola(pozycjaPoczatkowa, szachownicaTestowa.getFigury().get(i).podajMozliweRuchy());
+    public boolean sprawdzCzyPrzeciwnikMozeWykonacRuch (Kolor kolor, Szachownica szachownica){
+        for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
+            if(szachownica.getFigury().get(i).getKolor() != kolor){
+                ParametryPola pozycjaPoczatkowa = new ParametryPola(szachownica.getFigury().get(i).getPolozenieX(), szachownica.getFigury().get(i).getPolozenieY(), true);
+                List<ParametryPola> mozliweRuchyZUwzglednieniemPozycjiKrola = mozliweRuchyZUwglednieniemPozycjiKrola(pozycjaPoczatkowa, szachownica.getFigury().get(i).podajMozliweRuchy());
                 if(mozliweRuchyZUwzglednieniemPozycjiKrola.size()>0){
                     return true;
                 }
@@ -315,8 +334,12 @@ public class Szachy implements Gra {
     }
 
     public TypRuchu typRuchu (Kolor kolor){
-        boolean sprawdzCzyBijeKrola = sprawdzCzyBijeKrola(kolor);
-        boolean sprawdzCzyPrzeciwnikMozeWykonacRuch = sprawdzCzyPrzeciwnikMozeWykonacRuch(kolor);
+        return typRuchu(kolor, this.szachownica);
+    }
+
+    public TypRuchu typRuchu (Kolor kolor, Szachownica szachownica){
+        boolean sprawdzCzyBijeKrola = sprawdzCzyBijeKrola(kolor, szachownica);
+        boolean sprawdzCzyPrzeciwnikMozeWykonacRuch = sprawdzCzyPrzeciwnikMozeWykonacRuch(kolor, szachownica);
         if (sprawdzCzyBijeKrola == true && sprawdzCzyPrzeciwnikMozeWykonacRuch == true){
             return TypRuchu.SZACH;
         }
@@ -377,6 +400,7 @@ public class Szachy implements Gra {
         List<Figura> listaFigur = new ArrayList<>();
         szachownica.setFigury(listaFigur);
         ustawieniePionkowNaSzachownicy();
+        numerRuchu = 0;
     }
 
 

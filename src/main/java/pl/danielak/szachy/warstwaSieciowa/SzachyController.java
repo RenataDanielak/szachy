@@ -47,9 +47,14 @@ public class SzachyController {
         gra.rozpocznijGreOdNowa();
     }
 
+//    @PostMapping("/ruchGlupiegoWirtualnegoPrzeciwnika")
+//    public ParametryRuchuDto wykonajRuchGlupimWirtualnymPrzeciwnikiem() {
+//        witrualnyPrzeciwnik.glupiWirtualnyPrzeciwnik();
+//        return new ParametryRuchuDto();
+//    }
+
     @PostMapping("/ruchWirtualnegoPrzeciwnika")
     public ParametryRuchuDto wykonajRuch() {
-        witrualnyPrzeciwnik.wykonajRuch();
-        return new ParametryRuchuDto();
+        return witrualnyPrzeciwnik.wykonajRuchWirtualnymPrzeciwnikiem();
     }
 }

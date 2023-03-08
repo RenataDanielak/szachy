@@ -219,10 +219,10 @@ public class Szachy implements Gra {
 
     @Override
     public List<ParametryPolaDto> podajMozliweRuchy(ParametryPolaDto pozycjaPoczatkowaDto) {
-        return podajMozliweRuchy(pozycjaPoczatkowaDto, this.szachownica);
+        return podajMozliweRuchy(pozycjaPoczatkowaDto, this.szachownica, this.numerRuchu);
     }
 
-    public List<ParametryPolaDto> podajMozliweRuchy(ParametryPolaDto pozycjaPoczatkowaDto, Szachownica szachownica) {
+    public List<ParametryPolaDto> podajMozliweRuchy(ParametryPolaDto pozycjaPoczatkowaDto, Szachownica szachownica, int numerRuchu) {
         int pozycjaPoczatkowaX = pozycjaPoczatkowaDto.getPozycjaX();
         int pozycjaPoczatkowaY = pozycjaPoczatkowaDto.getPozycjaY();
         Kolor kolor = kolejnoscRuchuFigurPodWzgledemKoloru(numerRuchu);

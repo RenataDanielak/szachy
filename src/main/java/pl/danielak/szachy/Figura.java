@@ -1,6 +1,5 @@
 package pl.danielak.szachy;
 
-import pl.danielak.szachy.dto.ParametryPolaDto;
 
 import java.util.ArrayList;
 import java.util.List;

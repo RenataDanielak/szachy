@@ -5,6 +5,7 @@ import pl.danielak.szachy.dto.PionekDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Szachy implements Gra {
     private Szachownica szachownica;
@@ -123,6 +124,13 @@ public class Szachy implements Gra {
         pionek.setPolozenieY(3);
         pionek.setSzachownica(szachownica);
         szachownica.getFigury().add(pionek);
+
+        Pionek pionek1 = new Pionek();
+        pionek1.setKolor(Kolor.CZARNY);
+        pionek1.setPolozenieX(5);
+        pionek1.setPolozenieY(5);
+        pionek1.setSzachownica(szachownica);
+        szachownica.getFigury().add(pionek1);
 
 //        Wieza wieza = new Wieza();
 //        wieza.setKolor(Kolor.BIALY);
@@ -375,6 +383,7 @@ public class Szachy implements Gra {
                            }
                        }
                        figura.wykonajRuch(pozycjaKoncowaY, pozycjaKoncowaX);
+                       zamianaPionkaWKrolowa(figura);
                        numerRuchu = numerRuchu +1;
                        return typRuchu(figura.getKolor());
                    }
@@ -382,6 +391,31 @@ public class Szachy implements Gra {
             }
         }
         throw new IllegalArgumentException();
+    }
+
+    public void zamianaPionkaWKrolowa(Figura figura){
+        if(figura.getRodzajFigury() == RodzajFigury.PIONEK){
+            int polozenieX = figura.getPolozenieX();
+            int polozenieY = figura.getPolozenieY();
+            if(figura.getKolor() == Kolor.BIALY && polozenieY == 7){
+                szachownica.getFigury().remove(figura);
+                Krolowa krolowa = new Krolowa();
+                krolowa.setKolor(Kolor.BIALY);
+                krolowa.setPolozenieX(polozenieX);
+                krolowa.setPolozenieY(polozenieY);
+                krolowa.setSzachownica(szachownica);
+                szachownica.getFigury().add(krolowa);
+            }
+            if(figura.getKolor() == Kolor.CZARNY && polozenieY == 0){
+                szachownica.getFigury().remove(figura);
+                Krolowa krolowa = new Krolowa();
+                krolowa.setKolor(Kolor.CZARNY);
+                krolowa.setPolozenieX(polozenieX);
+                krolowa.setPolozenieY(polozenieY);
+                krolowa.setSzachownica(szachownica);
+                szachownica.getFigury().add(krolowa);
+            }
+        }
     }
 
     @Override

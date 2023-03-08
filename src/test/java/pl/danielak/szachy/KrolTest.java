@@ -34,7 +34,7 @@ public class KrolTest {
         return false;
     }
     @Test
-    void podajMozliweRuchyKonStoiNaSrodkuPrzyPustejSzachownicy() {
+    void podajMozliweRuchyKrolStoiNaSrodkuPrzyPustejSzachownicy() {
         Given:
         krol = new Krol();
         int x = 4;

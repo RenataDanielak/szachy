@@ -1,19 +1,22 @@
 package pl.danielak.szachy.wirtualnyPrzeciwnik;
 
+import pl.danielak.szachy.TypRuchu;
 import pl.danielak.szachy.dto.ParametryPolaDto;
 
 public class ParametryRuchuWirtualnegoPrzeciwnika {
 
     private ParametryPolaDto polozeniePoczatkowe;
     private ParametryPolaDto polozenieKoncowe;
-    int minimalnaWartoscRuchu;
-    int maksymalnaWartoscRuchu;
+    private int minimalnaWartoscRuchu;
+    private int maksymalnaWartoscRuchu;
+    private TypRuchu typRuchu;
 
-    public ParametryRuchuWirtualnegoPrzeciwnika(ParametryPolaDto polozeniePoczatkowe, ParametryPolaDto polozenieKoncowe, int minimalnaWartoscRuchu, int maksymalnaWartoscRuchu) {
+    public ParametryRuchuWirtualnegoPrzeciwnika(ParametryPolaDto polozeniePoczatkowe, ParametryPolaDto polozenieKoncowe, int minimalnaWartoscRuchu, int maksymalnaWartoscRuchu, TypRuchu typRuchu) {
         this.polozeniePoczatkowe = polozeniePoczatkowe;
         this.polozenieKoncowe = polozenieKoncowe;
         this.minimalnaWartoscRuchu = minimalnaWartoscRuchu;
         this.maksymalnaWartoscRuchu = maksymalnaWartoscRuchu;
+        this.typRuchu = typRuchu;
     }
 
     public ParametryPolaDto getPolozeniePoczatkowe() {
@@ -48,4 +51,11 @@ public class ParametryRuchuWirtualnegoPrzeciwnika {
         this.maksymalnaWartoscRuchu = maksymalnaWartoscRuchu;
     }
 
+    public TypRuchu getTypRuchu() {
+        return typRuchu;
+    }
+
+    public void setTypRuchu(TypRuchu typRuchu) {
+        this.typRuchu = typRuchu;
+    }
 }

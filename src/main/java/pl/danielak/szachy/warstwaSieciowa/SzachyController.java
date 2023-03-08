@@ -7,6 +7,7 @@ import pl.danielak.szachy.TypRuchu;
 import pl.danielak.szachy.dto.ParametryPolaDto;
 import pl.danielak.szachy.dto.ParametryRuchuDto;
 import pl.danielak.szachy.dto.PionekDto;
+import pl.danielak.szachy.wirtualnyPrzeciwnik.RuchWirtualnegoPrzeciwnika;
 import pl.danielak.szachy.wirtualnyPrzeciwnik.WirtualnyPrzeciwnik;
 
 import java.util.List;
@@ -47,14 +48,8 @@ public class SzachyController {
         gra.rozpocznijGreOdNowa();
     }
 
-//    @PostMapping("/ruchGlupiegoWirtualnegoPrzeciwnika")
-//    public ParametryRuchuDto wykonajRuchGlupimWirtualnymPrzeciwnikiem() {
-//        witrualnyPrzeciwnik.glupiWirtualnyPrzeciwnik();
-//        return new ParametryRuchuDto();
-//    }
-
     @PostMapping("/ruchWirtualnegoPrzeciwnika")
-    public ParametryRuchuDto wykonajRuch() {
+    public RuchWirtualnegoPrzeciwnika wykonajRuch() {
         return witrualnyPrzeciwnik.wykonajRuchWirtualnymPrzeciwnikiem();
     }
 }

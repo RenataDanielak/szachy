@@ -44,7 +44,7 @@ public class WirtualnyPrzeciwnik {
     }
 
 
-    public ParametryRuchuDto wykonajRuchWirtualnymPrzeciwnikiem() {
+    public RuchWirtualnegoPrzeciwnika wykonajRuchWirtualnymPrzeciwnikiem() {
         List<ParametryRuchuWirtualnegoPrzeciwnika> mozliweRuchy = mozliweRuchy();
         List<ParametryRuchuWirtualnegoPrzeciwnika> najlepszeMin = najlepszeMin(mozliweRuchy);
         if(najlepszeMin.size() > 1){
@@ -55,20 +55,26 @@ public class WirtualnyPrzeciwnik {
                 ParametryPolaDto pozycjaPoczatkowa = najlepszeMax.get(index).getPolozeniePoczatkowe();
                 ParametryPolaDto pozycjaKoncowa = najlepszeMax.get(index).getPolozenieKoncowe();
                 szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
-                return new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
+                TypRuchu typRuchu = najlepszeMax.get(index).getTypRuchu();
+                ParametryRuchuDto parametryRuchuDto = new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
+                return new RuchWirtualnegoPrzeciwnika(parametryRuchuDto, typRuchu);
             }
             else{
                 ParametryPolaDto pozycjaPoczatkowa = najlepszeMax.get(0).getPolozeniePoczatkowe();
                 ParametryPolaDto pozycjaKoncowa = najlepszeMax.get(0).getPolozenieKoncowe();
                 szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
-                return new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
+                TypRuchu typRuchu = najlepszeMax.get(0).getTypRuchu();
+                ParametryRuchuDto parametryRuchuDto = new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
+                return new RuchWirtualnegoPrzeciwnika(parametryRuchuDto, typRuchu);
             }
         }
         else {
             ParametryPolaDto pozycjaPoczatkowa = najlepszeMin.get(0).getPolozeniePoczatkowe();
             ParametryPolaDto pozycjaKoncowa = najlepszeMin.get(0).getPolozenieKoncowe();
             szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
-            return new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
+            TypRuchu typRuchu = najlepszeMin.get(0).getTypRuchu();
+            ParametryRuchuDto parametryRuchuDto = new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
+            return new RuchWirtualnegoPrzeciwnika(parametryRuchuDto, typRuchu);
         }
     }
 
@@ -76,7 +82,7 @@ public class WirtualnyPrzeciwnik {
         List<ParametryRuchuWirtualnegoPrzeciwnika> lista = new ArrayList<>();
         int najlepszaMinimalnaWartoscRuchu = -1000;
         for (int i = 0; i < mozliweRuchy.size(); i = i + 1 ){
-            int min = mozliweRuchy.get(i).minimalnaWartoscRuchu;
+            int min = mozliweRuchy.get(i).getMinimalnaWartoscRuchu();
             if(min == najlepszaMinimalnaWartoscRuchu){
                 lista.add(mozliweRuchy.get(i));
             }
@@ -93,7 +99,7 @@ public class WirtualnyPrzeciwnik {
         List<ParametryRuchuWirtualnegoPrzeciwnika> lista = new ArrayList<>();
         int najlepszeMax = -1000;
         for (int i = 0; i < najlepszeMin.size(); i = i + 1 ){
-            int max = najlepszeMin.get(i).maksymalnaWartoscRuchu;
+            int max = najlepszeMin.get(i).getMaksymalnaWartoscRuchu();
             if(max == najlepszeMax){
                 lista.add(najlepszeMin.get(i));
             }
@@ -141,6 +147,7 @@ public class WirtualnyPrzeciwnik {
         int minimalnaWartoscRuchu = 1000;
         int maksymalnaWartoscRuchu = -1000;
         int numerRuchu = szachy.getNumerRuchu();
+        TypRuchu typRuchu1 = null;
         Szachownica szachownicaTestowa = szachy.szachownicaTestowa();
         for (int i = 0; i < szachownicaTestowa.getFigury().size(); i = i + 1) {
             Figura figura = szachownicaTestowa.getFigury().get(i);
@@ -148,9 +155,9 @@ public class WirtualnyPrzeciwnik {
             if (figura.getPolozenieX() == pozycjaPoczatkowa.getPozycjaX() && figura.getPolozenieY() == pozycjaPoczatkowa.getPozycjaY()) {
                 TypRuchu typRuchu = ruch(figura, pozycjaKoncowa, szachownicaTestowa);
                 if (typRuchu == TypRuchu.SZACHMAT) {
-                    return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 50, 50);
+                    return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 50, 50, typRuchu);
                 } else if (typRuchu == TypRuchu.PAT) {
-                    return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 0, 0);
+                    return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 0, 0, typRuchu);
                 } else {
                     for (int j = 0; j < szachownicaTestowa.getFigury().size(); j = j + 1) {
                         if(szachownicaTestowa.getFigury().get(j).getKolor() != kolor){
@@ -159,7 +166,7 @@ public class WirtualnyPrzeciwnik {
                             for (int k = 0; k < mozliweRuchy.size(); k = k + 1) {
                                 Szachownica szachownicaTestowa2 = szachy.szachownicaTestowa(szachownicaTestowa);
                                 ParametryPolaDto pozycjaKoncowaMozliwegoRuchu = new ParametryPolaDto(mozliweRuchy.get(k).getPozycjaX(), mozliweRuchy.get(k).getPozycjaY());
-                                TypRuchu typRuchu1 = ruch(szachownicaTestowa.getFigury().get(j), pozycjaKoncowaMozliwegoRuchu, szachownicaTestowa2);
+                                typRuchu1 = ruch(szachownicaTestowa.getFigury().get(j), pozycjaKoncowaMozliwegoRuchu, szachownicaTestowa2);
                                 if(typRuchu1 == TypRuchu.SZACHMAT){
                                     minimalnaWartoscRuchu = -50;
                                 }
@@ -177,7 +184,7 @@ public class WirtualnyPrzeciwnik {
                         }
                     }
                 }
-                return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, minimalnaWartoscRuchu, maksymalnaWartoscRuchu);
+                return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, minimalnaWartoscRuchu, maksymalnaWartoscRuchu, typRuchu1);
             }
         }
         return null;

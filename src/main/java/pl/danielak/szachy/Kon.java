@@ -5,6 +5,16 @@ import java.util.List;
 
 public class Kon extends FiguraWielokierunkowa {
 
+    public Kon() {
+    }
+
+    public Kon(int polozenieX, int polozenieY, Kolor kolor, Szachownica szachownica) {
+        setPolozenieX(polozenieX);
+        setPolozenieY(polozenieY);
+        setKolor(kolor);
+        setSzachownica(szachownica);
+    }
+
     public RodzajFigury getRodzajFigury() {
         return RodzajFigury.KON;
     }

@@ -11,6 +11,25 @@ public class Szachy implements Gra {
     private Szachownica szachownica;
     private int numerRuchu = 0;
 
+    public Szachy () {
+        szachownica = new Szachownica();
+        Pionek pionekCzarny = new Pionek(5, 1, Kolor.CZARNY, szachownica);
+        Wieza wiezaCzarna = new Wieza(5, 0, Kolor.CZARNY, szachownica);
+        Krol krolCzarny = new Krol(3, 5, Kolor.CZARNY, szachownica);
+        Krol krolBialy = new Krol(6, 1, Kolor.BIALY, szachownica);
+
+        szachownica.getFigury().add(pionekCzarny);
+        szachownica.getFigury().add(wiezaCzarna);
+        szachownica.getFigury().add(krolCzarny);
+        szachownica.getFigury().add(krolBialy);
+
+        // ustawieniePionkowNaSzachownicy();
+        //ustawieniePionkowNaSzachownicy(Kolor.CZARNY);
+    }
+
+    public Szachy(Szachownica szachownica){
+        this.szachownica = szachownica;
+    }
     public Szachownica getSzachownica() {
         return szachownica;
     }
@@ -28,7 +47,7 @@ public class Szachy implements Gra {
     }
 
     public void ustawieniePionkowNaSzachownicy(){
-        //PAMIETAC O DODANIU KOLORU DO PARAMETRU FUNKCJI I POZNIEJ PRZY WYWOLYWANIU TEJ FUNKCJI ROWNIEZ
+
 //        int polozenieY = 0;
 //        int polozeniePionkow = 0;
 //        if(kolor == Kolor.BIALY){
@@ -47,7 +66,7 @@ public class Szachy implements Gra {
 //            pionek.setSzachownica(szachownica);
 //            szachownica.getFigury().add(pionek);
 //        }
-
+//
 //        Wieza wieza1 = new Wieza();
 //        wieza1.setKolor(kolor);
 //        wieza1.setPolozenieX(0);
@@ -61,7 +80,7 @@ public class Szachy implements Gra {
 //        wieza2.setPolozenieY(polozenieY);
 //        wieza2.setSzachownica(szachownica);
 //        szachownica.getFigury().add(wieza2);
-
+//
 //        Kon kon1 = new Kon();
 //        kon1.setKolor(kolor);
 //        kon1.setPolozenieX(1);
@@ -75,7 +94,7 @@ public class Szachy implements Gra {
 //        kon2.setPolozenieY(polozenieY);
 //        kon2.setSzachownica(szachownica);
 //        szachownica.getFigury().add(kon2);
-
+//
 //        Laufer laufer1 = new Laufer();
 //        laufer1.setKolor(kolor);
 //        laufer1.setPolozenieX(2);
@@ -89,7 +108,7 @@ public class Szachy implements Gra {
 //        laufer2.setPolozenieY(polozenieY);
 //        laufer2.setSzachownica(szachownica);
 //        szachownica.getFigury().add(laufer2);
-
+//
 //        Krolowa krolowa = new Krolowa();
 //        krolowa.setKolor(kolor);
 //        krolowa.setPolozenieX(3);
@@ -104,67 +123,60 @@ public class Szachy implements Gra {
 //        krol.setSzachownica(szachownica);
 //        szachownica.getFigury().add(krol);
 
-        Krol krol = new Krol();
-        krol.setKolor(Kolor.BIALY);
-        krol.setPolozenieX(6);
-        krol.setPolozenieY(0);
-        krol.setSzachownica(szachownica);
-        szachownica.getFigury().add(krol);
+        ///////////////////////////////////////////////////////////
 
-        Krolowa krolowa = new Krolowa();
-        krolowa.setKolor(Kolor.CZARNY);
-        krolowa.setPolozenieX(3);
-        krolowa.setPolozenieY(6);
-        krolowa.setSzachownica(szachownica);
-        szachownica.getFigury().add(krolowa);
+//        Krol krol = new Krol();
+//        krol.setKolor(Kolor.BIALY);
+//        krol.setPolozenieX(4);
+//        krol.setPolozenieY(1);
+//        krol.setSzachownica(szachownica);
+//        szachownica.getFigury().add(krol);
 
-        Pionek pionek = new Pionek();
-        pionek.setKolor(Kolor.BIALY);
-        pionek.setPolozenieX(2);
-        pionek.setPolozenieY(3);
-        pionek.setSzachownica(szachownica);
-        szachownica.getFigury().add(pionek);
-
-        Pionek pionek1 = new Pionek();
-        pionek1.setKolor(Kolor.CZARNY);
-        pionek1.setPolozenieX(5);
-        pionek1.setPolozenieY(5);
-        pionek1.setSzachownica(szachownica);
-        szachownica.getFigury().add(pionek1);
-
-//        Wieza wieza = new Wieza();
-//        wieza.setKolor(Kolor.BIALY);
-//        wieza.setPolozenieX(3);
-//        wieza.setPolozenieY(1);
-//        wieza.setSzachownica(szachownica);
-//        szachownica.getFigury().add(wieza);
-
-        Wieza wieza1 = new Wieza();
-        wieza1.setKolor(Kolor.CZARNY);
-        wieza1.setPolozenieX(2);
-        wieza1.setPolozenieY(1);
-        wieza1.setSzachownica(szachownica);
-        szachownica.getFigury().add(wieza1);
-
-        Krol krol1 = new Krol();
-        krol1.setKolor(Kolor.CZARNY);
-        krol1.setPolozenieX(4);
-        krol1.setPolozenieY(7);
-        krol1.setSzachownica(szachownica);
-        szachownica.getFigury().add(krol1);
-    }
-    public Szachy () {
-        szachownica = new Szachownica();
-        ustawieniePionkowNaSzachownicy();
-        //ustawieniePionkowNaSzachownicy(Kolor.CZARNY);
+//        Krolowa krolowa = new Krolowa();
+//        krolowa.setKolor(Kolor.CZARNY);
+//        krolowa.setPolozenieX(3);
+//        krolowa.setPolozenieY(6);
+//        krolowa.setSzachownica(szachownica);
+//        szachownica.getFigury().add(krolowa);
+//
+//        Pionek pionek = new Pionek();
+//        pionek.setKolor(Kolor.BIALY);
+//        pionek.setPolozenieX(2);
+//        pionek.setPolozenieY(3);
+//        pionek.setSzachownica(szachownica);
+//        szachownica.getFigury().add(pionek);
+//
+//        Pionek pionek1 = new Pionek();
+//        pionek1.setKolor(Kolor.CZARNY);
+//        pionek1.setPolozenieX(5);
+//        pionek1.setPolozenieY(5);
+//        pionek1.setSzachownica(szachownica);
+//        szachownica.getFigury().add(pionek1);
+//
+//////        Wieza wieza = new Wieza();
+//////        wieza.setKolor(Kolor.BIALY);
+//////        wieza.setPolozenieX(3);
+//////        wieza.setPolozenieY(1);
+//////        wieza.setSzachownica(szachownica);
+//////        szachownica.getFigury().add(wieza);
+////
+//        Wieza wieza1 = new Wieza();
+//        wieza1.setKolor(Kolor.CZARNY);
+//        wieza1.setPolozenieX(5);
+//        wieza1.setPolozenieY(0);
+//        wieza1.setSzachownica(szachownica);
+//        szachownica.getFigury().add(wieza1);
+//
+//        Krol krol1 = new Krol();
+//        krol1.setKolor(Kolor.CZARNY);
+//        krol1.setPolozenieX(4);
+//        krol1.setPolozenieY(7);
+//        krol1.setSzachownica(szachownica);
+//        szachownica.getFigury().add(krol1);
     }
 
     @Override
     public List<PionekDto> listaPionkow() {
-        return listaPionkow(this.szachownica);
-    }
-
-    public List<PionekDto> listaPionkow(Szachownica szachownica) {
         List<PionekDto> lista = new ArrayList<>();
         for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ){
             Figura figura = szachownica.getFigury().get(i);
@@ -175,10 +187,6 @@ public class Szachy implements Gra {
     }
 
     public Szachownica szachownicaTestowa (){
-        return szachownicaTestowa(this.szachownica);
-    }
-
-    public Szachownica szachownicaTestowa (Szachownica szachownica){
         Szachownica szachownicaTestowa = new Szachownica();
         List<Figura> lista = new ArrayList<>();
         for (int j = 0; j < szachownica.getFigury().size(); j = j + 1 ){
@@ -227,10 +235,6 @@ public class Szachy implements Gra {
 
     @Override
     public List<ParametryPolaDto> podajMozliweRuchy(ParametryPolaDto pozycjaPoczatkowaDto) {
-        return podajMozliweRuchy(pozycjaPoczatkowaDto, this.szachownica, this.numerRuchu);
-    }
-
-    public List<ParametryPolaDto> podajMozliweRuchy(ParametryPolaDto pozycjaPoczatkowaDto, Szachownica szachownica, int numerRuchu) {
         int pozycjaPoczatkowaX = pozycjaPoczatkowaDto.getPozycjaX();
         int pozycjaPoczatkowaY = pozycjaPoczatkowaDto.getPozycjaY();
         Kolor kolor = kolejnoscRuchuFigurPodWzgledemKoloru(numerRuchu);
@@ -304,7 +308,7 @@ public class Szachy implements Gra {
         return lista;
     }
 
-    public boolean sprawdzCzyBijeKrola (Kolor kolor, Szachownica szachownica){
+    public boolean sprawdzCzyBijeKrola (Kolor kolor){
         for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
             if(szachownica.getFigury().get(i).getRodzajFigury() == RodzajFigury.KROL && szachownica.getFigury().get(i).getKolor() != kolor){
                 int polozenieKrolaX = szachownica.getFigury().get(i).getPolozenieX();
@@ -325,7 +329,7 @@ public class Szachy implements Gra {
         return false;
     }
 
-    public boolean sprawdzCzyPrzeciwnikMozeWykonacRuch (Kolor kolor, Szachownica szachownica){
+    public boolean sprawdzCzyPrzeciwnikMozeWykonacRuch (Kolor kolor){
         for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
             if(szachownica.getFigury().get(i).getKolor() != kolor){
                 ParametryPola pozycjaPoczatkowa = new ParametryPola(szachownica.getFigury().get(i).getPolozenieX(), szachownica.getFigury().get(i).getPolozenieY(), true);
@@ -340,12 +344,8 @@ public class Szachy implements Gra {
     }
 
     public TypRuchu typRuchu (Kolor kolor){
-        return typRuchu(kolor, this.szachownica);
-    }
-
-    public TypRuchu typRuchu (Kolor kolor, Szachownica szachownica){
-        boolean sprawdzCzyBijeKrola = sprawdzCzyBijeKrola(kolor, szachownica);
-        boolean sprawdzCzyPrzeciwnikMozeWykonacRuch = sprawdzCzyPrzeciwnikMozeWykonacRuch(kolor, szachownica);
+        boolean sprawdzCzyBijeKrola = sprawdzCzyBijeKrola(kolor);
+        boolean sprawdzCzyPrzeciwnikMozeWykonacRuch = sprawdzCzyPrzeciwnikMozeWykonacRuch(kolor);
         if (sprawdzCzyBijeKrola == true && sprawdzCzyPrzeciwnikMozeWykonacRuch == true){
             return TypRuchu.SZACH;
         }
@@ -423,11 +423,7 @@ public class Szachy implements Gra {
         List<Figura> listaFigur = new ArrayList<>();
         szachownica.setFigury(listaFigur);
         ustawieniePionkowNaSzachownicy();
+        //ustawieniePionkowNaSzachownicy(Kolor.CZARNY);
         numerRuchu = 0;
     }
-
-
-
-    //3. Wykonaj ruch przez wirtualnego przeciwnika- ta fukcja zwraca pozycje poczatkowa i koncowa figury ktora wykonala ruch
-
 }

@@ -9,14 +9,12 @@ public class ParametryRuchuWirtualnegoPrzeciwnika {
     private ParametryPolaDto polozenieKoncowe;
     private int minimalnaWartoscRuchu;
     private int maksymalnaWartoscRuchu;
-    private TypRuchu typRuchu;
 
-    public ParametryRuchuWirtualnegoPrzeciwnika(ParametryPolaDto polozeniePoczatkowe, ParametryPolaDto polozenieKoncowe, int minimalnaWartoscRuchu, int maksymalnaWartoscRuchu, TypRuchu typRuchu) {
+    public ParametryRuchuWirtualnegoPrzeciwnika(ParametryPolaDto polozeniePoczatkowe, ParametryPolaDto polozenieKoncowe, int minimalnaWartoscRuchu, int maksymalnaWartoscRuchu) {
         this.polozeniePoczatkowe = polozeniePoczatkowe;
         this.polozenieKoncowe = polozenieKoncowe;
         this.minimalnaWartoscRuchu = minimalnaWartoscRuchu;
         this.maksymalnaWartoscRuchu = maksymalnaWartoscRuchu;
-        this.typRuchu = typRuchu;
     }
 
     public ParametryPolaDto getPolozeniePoczatkowe() {
@@ -51,11 +49,4 @@ public class ParametryRuchuWirtualnegoPrzeciwnika {
         this.maksymalnaWartoscRuchu = maksymalnaWartoscRuchu;
     }
 
-    public TypRuchu getTypRuchu() {
-        return typRuchu;
-    }
-
-    public void setTypRuchu(TypRuchu typRuchu) {
-        this.typRuchu = typRuchu;
-    }
 }

@@ -54,16 +54,14 @@ public class WirtualnyPrzeciwnik {
                 int index = randomGenerator.nextInt(najlepszeMax.size());
                 ParametryPolaDto pozycjaPoczatkowa = najlepszeMax.get(index).getPolozeniePoczatkowe();
                 ParametryPolaDto pozycjaKoncowa = najlepszeMax.get(index).getPolozenieKoncowe();
-                szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
-                TypRuchu typRuchu = najlepszeMax.get(index).getTypRuchu();
+                TypRuchu typRuchu = szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
                 ParametryRuchuDto parametryRuchuDto = new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
                 return new RuchWirtualnegoPrzeciwnika(parametryRuchuDto, typRuchu);
             }
             else{
                 ParametryPolaDto pozycjaPoczatkowa = najlepszeMax.get(0).getPolozeniePoczatkowe();
                 ParametryPolaDto pozycjaKoncowa = najlepszeMax.get(0).getPolozenieKoncowe();
-                szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
-                TypRuchu typRuchu = najlepszeMax.get(0).getTypRuchu();
+                TypRuchu typRuchu = szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
                 ParametryRuchuDto parametryRuchuDto = new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
                 return new RuchWirtualnegoPrzeciwnika(parametryRuchuDto, typRuchu);
             }
@@ -71,8 +69,7 @@ public class WirtualnyPrzeciwnik {
         else {
             ParametryPolaDto pozycjaPoczatkowa = najlepszeMin.get(0).getPolozeniePoczatkowe();
             ParametryPolaDto pozycjaKoncowa = najlepszeMin.get(0).getPolozenieKoncowe();
-            szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
-            TypRuchu typRuchu = najlepszeMin.get(0).getTypRuchu();
+            TypRuchu typRuchu = szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
             ParametryRuchuDto parametryRuchuDto = new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
             return new RuchWirtualnegoPrzeciwnika(parametryRuchuDto, typRuchu);
         }
@@ -131,14 +128,17 @@ public class WirtualnyPrzeciwnik {
         return lista;
     }
 
-    public TypRuchu ruch (Figura figura, ParametryPolaDto pozycjaKoncowa, Szachownica szachownicaTestowa) {
-        for (int j = 0; j < szachownicaTestowa.getFigury().size(); j = j + 1) {
-            if (szachownicaTestowa.getFigury().get(j).getPolozenieX() == pozycjaKoncowa.getPozycjaX() && szachownicaTestowa.getFigury().get(j).getPolozenieY() == pozycjaKoncowa.getPozycjaY()) {
-                szachownicaTestowa.getFigury().remove(j);
+    public TypRuchu ruch (Figura figura, ParametryPolaDto pozycjaKoncowa, Szachy szachy) {
+        Szachownica szachownica = szachy.getSzachownica();
+        for (int j = 0; j < szachownica.getFigury().size(); j = j + 1) {
+            if (szachownica.getFigury().get(j).getPolozenieX() == pozycjaKoncowa.getPozycjaX() && szachownica.getFigury().get(j).getPolozenieY() == pozycjaKoncowa.getPozycjaY()) {
+                szachownica.getFigury().remove(j);
             }
         }
         figura.wykonajRuch(pozycjaKoncowa.getPozycjaY(), pozycjaKoncowa.getPozycjaX());
-        return szachy.typRuchu(figura.getKolor(), szachownicaTestowa);
+        szachy.setNumerRuchu(szachy.getNumerRuchu()+1);
+        szachy.zamianaPionkaWKrolowa(figura);
+        return szachy.typRuchu(figura.getKolor());
     }
 
 
@@ -148,30 +148,31 @@ public class WirtualnyPrzeciwnik {
         int maksymalnaWartoscRuchu = -1000;
         int numerRuchu = szachy.getNumerRuchu();
         TypRuchu typRuchu1 = null;
-        Szachownica szachownicaTestowa = szachy.szachownicaTestowa();
+        Szachy szachyTestowe = zrobWirtualneSzachy(szachy);
+        Szachownica szachownicaTestowa = szachyTestowe.getSzachownica();
         for (int i = 0; i < szachownicaTestowa.getFigury().size(); i = i + 1) {
             Figura figura = szachownicaTestowa.getFigury().get(i);
             Kolor kolor = figura.getKolor();
             if (figura.getPolozenieX() == pozycjaPoczatkowa.getPozycjaX() && figura.getPolozenieY() == pozycjaPoczatkowa.getPozycjaY()) {
-                TypRuchu typRuchu = ruch(figura, pozycjaKoncowa, szachownicaTestowa);
+                TypRuchu typRuchu = ruch(figura, pozycjaKoncowa, szachyTestowe);
                 if (typRuchu == TypRuchu.SZACHMAT) {
-                    return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 50, 50, typRuchu);
+                    return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 50, 50);
                 } else if (typRuchu == TypRuchu.PAT) {
-                    return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 0, 0, typRuchu);
+                    return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 0, 0);
                 } else {
                     for (int j = 0; j < szachownicaTestowa.getFigury().size(); j = j + 1) {
                         if(szachownicaTestowa.getFigury().get(j).getKolor() != kolor){
                             ParametryPolaDto pozycjaPoczatkowaPrzeciwnegoKoloru = new ParametryPolaDto(szachownicaTestowa.getFigury().get(j).getPolozenieX(), szachownicaTestowa.getFigury().get(j).getPolozenieY());
-                            List<ParametryPolaDto> mozliweRuchy = szachy.podajMozliweRuchy(pozycjaPoczatkowaPrzeciwnegoKoloru, szachownicaTestowa, numerRuchu + 1);
+                            List<ParametryPolaDto> mozliweRuchy = szachyTestowe.podajMozliweRuchy(pozycjaPoczatkowaPrzeciwnegoKoloru);
                             for (int k = 0; k < mozliweRuchy.size(); k = k + 1) {
-                                Szachownica szachownicaTestowa2 = szachy.szachownicaTestowa(szachownicaTestowa);
+                                Szachy szachyTestoweNaOdpowiedzPrzeciwnika = zrobWirtualneSzachy(szachyTestowe);
                                 ParametryPolaDto pozycjaKoncowaMozliwegoRuchu = new ParametryPolaDto(mozliweRuchy.get(k).getPozycjaX(), mozliweRuchy.get(k).getPozycjaY());
-                                typRuchu1 = ruch(szachownicaTestowa.getFigury().get(j), pozycjaKoncowaMozliwegoRuchu, szachownicaTestowa2);
+                                typRuchu1 = ruch(szachownicaTestowa.getFigury().get(j), pozycjaKoncowaMozliwegoRuchu, szachyTestoweNaOdpowiedzPrzeciwnika);
                                 if(typRuchu1 == TypRuchu.SZACHMAT){
                                     minimalnaWartoscRuchu = -50;
                                 }
                                 else {
-                                    List<PionekDto> listaPionkow = szachy.listaPionkow(szachownicaTestowa2);
+                                    List<PionekDto> listaPionkow = szachyTestoweNaOdpowiedzPrzeciwnika.listaPionkow();
                                     int wartoscPionkowNaPlanszy = wartoscPionkowNaPlanszy(listaPionkow, kolor);
                                     if(wartoscPionkowNaPlanszy < minimalnaWartoscRuchu){
                                        minimalnaWartoscRuchu = wartoscPionkowNaPlanszy;
@@ -184,7 +185,7 @@ public class WirtualnyPrzeciwnik {
                         }
                     }
                 }
-                return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, minimalnaWartoscRuchu, maksymalnaWartoscRuchu, typRuchu1);
+                return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, minimalnaWartoscRuchu, maksymalnaWartoscRuchu);
             }
         }
         return null;
@@ -205,18 +206,27 @@ public class WirtualnyPrzeciwnik {
             else if(rodzajFigury == RodzajFigury.WIEZA){
                 wartoscFigury = 5;
             }
+            else if(rodzajFigury == RodzajFigury.KROL){
+                wartoscFigury = 0;
+            }
             else if(rodzajFigury == RodzajFigury.KROLOWA){
-                wartoscFigury =  9;
+                wartoscFigury = 9;
             }
             if(listaPionkow.get(i).getKolor() == kolor){
                 wartoscPionkowNaPlanszy = wartoscPionkowNaPlanszy + wartoscFigury;
             }
-            else {
+            if(listaPionkow.get(i).getKolor() != kolor){
                wartoscPionkowNaPlanszy = wartoscPionkowNaPlanszy - wartoscFigury;
             }
 
         }
         return wartoscPionkowNaPlanszy;
+    }
+
+    private Szachy zrobWirtualneSzachy (Szachy szachy){
+        Szachy wirtualneSzachy = new Szachy(szachy.szachownicaTestowa());
+        wirtualneSzachy.setNumerRuchu(szachy.getNumerRuchu());
+        return wirtualneSzachy;
     }
 
 

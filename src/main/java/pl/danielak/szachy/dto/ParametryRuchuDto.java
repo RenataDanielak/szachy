@@ -1,5 +1,7 @@
 package pl.danielak.szachy.dto;
 
+import java.util.Objects;
+
 public class ParametryRuchuDto {
 
     private ParametryPolaDto start;
@@ -28,5 +30,18 @@ public class ParametryRuchuDto {
 
     public void setKoniec(ParametryPolaDto koniec) {
         this.koniec = koniec;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParametryRuchuDto that = (ParametryRuchuDto) o;
+        return Objects.equals(start, that.start) && Objects.equals(koniec, that.koniec);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(start, koniec);
     }
 }

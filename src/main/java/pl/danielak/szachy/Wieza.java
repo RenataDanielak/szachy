@@ -11,6 +11,17 @@ public class Wieza extends FiguraRuszajacaSieOWielePol {
 
     private int numerRuchuWiezy;
 
+    public Wieza() {
+
+    }
+
+    public Wieza(int polozenieX, int polozenieY, Kolor kolor, Szachownica szachownica) {
+        setPolozenieX(polozenieX);
+        setPolozenieY(polozenieY);
+        setKolor(kolor);
+        setSzachownica(szachownica);
+    }
+
     public int getNumerRuchuWiezy() {
         return numerRuchuWiezy;
     }

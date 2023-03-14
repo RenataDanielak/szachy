@@ -6,6 +6,17 @@ import java.util.List;
 
 public class Krol extends FiguraWielokierunkowa {
 
+    public Krol() {
+
+    }
+
+    public Krol(int polozenieX, int polozenieY, Kolor kolor, Szachownica szachownica) {
+        setPolozenieX(polozenieX);
+        setPolozenieY(polozenieY);
+        setKolor(kolor);
+        setSzachownica(szachownica);
+    }
+
     private int numerRuchuKrola = 0;
 
     public int getNumerRuchuKrola() {

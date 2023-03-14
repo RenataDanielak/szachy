@@ -1,5 +1,7 @@
 package pl.danielak.szachy.dto;
 
+import java.util.Objects;
+
 public class ParametryPolaDto {
     private int pozycjaX;
     private int pozycjaY;
@@ -23,5 +25,18 @@ public class ParametryPolaDto {
 
     public void setPozycjaY(int pozycjaY) {
         this.pozycjaY = pozycjaY;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParametryPolaDto that = (ParametryPolaDto) o;
+        return pozycjaX == that.pozycjaX && pozycjaY == that.pozycjaY;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pozycjaX, pozycjaY);
     }
 }

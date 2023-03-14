@@ -49,7 +49,7 @@ public class SzachyController {
     }
 
     @PostMapping("/ruchWirtualnegoPrzeciwnika")
-    public RuchWirtualnegoPrzeciwnika wykonajRuch() {
+    public RuchWirtualnegoPrzeciwnika wykonajRuchPrzezWirtualnegoPrzeciwnika() {
         return witrualnyPrzeciwnik.wykonajRuchWirtualnymPrzeciwnikiem();
     }
 }

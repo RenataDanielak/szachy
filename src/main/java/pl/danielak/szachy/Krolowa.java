@@ -5,6 +5,17 @@ import java.util.List;
 
 public class Krolowa extends FiguraRuszajacaSieOWielePol {
 
+    public Krolowa() {
+
+    }
+
+    public Krolowa(int polozenieX, int polozenieY, Kolor kolor, Szachownica szachownica) {
+        setPolozenieX(polozenieX);
+        setPolozenieY(polozenieY);
+        setKolor(kolor);
+        setSzachownica(szachownica);
+    }
+
     public RodzajFigury getRodzajFigury() {
         return RodzajFigury.KROLOWA;
     }

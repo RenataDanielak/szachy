@@ -7,6 +7,16 @@ import java.util.List;
 
 public class Pionek extends Figura {
 
+    public Pionek() {
+    }
+
+    public Pionek(int polozenieX, int polozenieY, Kolor kolor, Szachownica szachownica) {
+        setPolozenieX(polozenieX);
+        setPolozenieY(polozenieY);
+        setKolor(kolor);
+        setSzachownica(szachownica);
+    }
+
     @Override
     public RodzajFigury getRodzajFigury() {
         return RodzajFigury.PIONEK;

@@ -1,30 +1,22 @@
 package pl.danielak.szachy;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import pl.danielak.szachy.dto.ParametryPolaDto;
 import pl.danielak.szachy.dto.PionekDto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
+@Component
 public class Szachy implements Gra {
     private Szachownica szachownica;
     private int numerRuchu = 0;
 
     public Szachy () {
         szachownica = new Szachownica();
-        Pionek pionekCzarny = new Pionek(5, 1, Kolor.CZARNY, szachownica);
-        Wieza wiezaCzarna = new Wieza(5, 0, Kolor.CZARNY, szachownica);
-        Krol krolCzarny = new Krol(3, 5, Kolor.CZARNY, szachownica);
-        Krol krolBialy = new Krol(6, 1, Kolor.BIALY, szachownica);
-
-        szachownica.getFigury().add(pionekCzarny);
-        szachownica.getFigury().add(wiezaCzarna);
-        szachownica.getFigury().add(krolCzarny);
-        szachownica.getFigury().add(krolBialy);
-
-        // ustawieniePionkowNaSzachownicy();
-        //ustawieniePionkowNaSzachownicy(Kolor.CZARNY);
+        ustawieniePionkowNaSzachownicy(Kolor.BIALY);
+        ustawieniePionkowNaSzachownicy(Kolor.CZARNY);
     }
 
     public Szachy(Szachownica szachownica){
@@ -46,133 +38,83 @@ public class Szachy implements Gra {
         this.numerRuchu = numerRuchu;
     }
 
-    public void ustawieniePionkowNaSzachownicy(){
+    public void ustawieniePionkowNaSzachownicy(Kolor kolor){
 
-//        int polozenieY = 0;
-//        int polozeniePionkow = 0;
-//        if(kolor == Kolor.BIALY){
-//          polozenieY = 0;
-//          polozeniePionkow = 1;
-//        }
-//        if(kolor == Kolor.CZARNY){
-//          polozenieY = 7;
-//          polozeniePionkow = 6;
-//        }
-//        for (int i = 0; i < 8; i = i + 1) {
-//            Pionek pionek = new Pionek();
-//            pionek.setKolor(kolor);
-//            pionek.setPolozenieX(i);
-//            pionek.setPolozenieY(polozeniePionkow);
-//            pionek.setSzachownica(szachownica);
-//            szachownica.getFigury().add(pionek);
-//        }
-//
-//        Wieza wieza1 = new Wieza();
-//        wieza1.setKolor(kolor);
-//        wieza1.setPolozenieX(0);
-//        wieza1.setPolozenieY(polozenieY);
-//        wieza1.setSzachownica(szachownica);
-//        szachownica.getFigury().add(wieza1);
-//
-//        Wieza wieza2 = new Wieza();
-//        wieza2.setKolor(kolor);
-//        wieza2.setPolozenieX(7);
-//        wieza2.setPolozenieY(polozenieY);
-//        wieza2.setSzachownica(szachownica);
-//        szachownica.getFigury().add(wieza2);
-//
-//        Kon kon1 = new Kon();
-//        kon1.setKolor(kolor);
-//        kon1.setPolozenieX(1);
-//        kon1.setPolozenieY(polozenieY);
-//        kon1.setSzachownica(szachownica);
-//        szachownica.getFigury().add(kon1);
-//
-//        Kon kon2 = new Kon();
-//        kon2.setKolor(kolor);
-//        kon2.setPolozenieX(6);
-//        kon2.setPolozenieY(polozenieY);
-//        kon2.setSzachownica(szachownica);
-//        szachownica.getFigury().add(kon2);
-//
-//        Laufer laufer1 = new Laufer();
-//        laufer1.setKolor(kolor);
-//        laufer1.setPolozenieX(2);
-//        laufer1.setPolozenieY(polozenieY);
-//        laufer1.setSzachownica(szachownica);
-//        szachownica.getFigury().add(laufer1);
-//
-//        Laufer laufer2 = new Laufer();
-//        laufer2.setKolor(kolor);
-//        laufer2.setPolozenieX(5);
-//        laufer2.setPolozenieY(polozenieY);
-//        laufer2.setSzachownica(szachownica);
-//        szachownica.getFigury().add(laufer2);
-//
-//        Krolowa krolowa = new Krolowa();
-//        krolowa.setKolor(kolor);
-//        krolowa.setPolozenieX(3);
-//        krolowa.setPolozenieY(polozenieY);
-//        krolowa.setSzachownica(szachownica);
-//        szachownica.getFigury().add(krolowa);
-//
-//        Krol krol = new Krol();
-//        krol.setKolor(kolor);
-//        krol.setPolozenieX(4);
-//        krol.setPolozenieY(polozenieY);
-//        krol.setSzachownica(szachownica);
-//        szachownica.getFigury().add(krol);
+        int polozenieY = 0;
+        int polozeniePionkow = 0;
+        if(kolor == Kolor.BIALY){
+          polozenieY = 0;
+          polozeniePionkow = 1;
+        }
+        if(kolor == Kolor.CZARNY){
+          polozenieY = 7;
+          polozeniePionkow = 6;
+        }
+        for (int i = 0; i < 8; i = i + 1) {
+            Pionek pionek = new Pionek();
+            pionek.setKolor(kolor);
+            pionek.setPolozenieX(i);
+            pionek.setPolozenieY(polozeniePionkow);
+            pionek.setSzachownica(szachownica);
+            szachownica.getFigury().add(pionek);
+        }
 
-        ///////////////////////////////////////////////////////////
+        Wieza wieza1 = new Wieza();
+        wieza1.setKolor(kolor);
+        wieza1.setPolozenieX(0);
+        wieza1.setPolozenieY(polozenieY);
+        wieza1.setSzachownica(szachownica);
+        szachownica.getFigury().add(wieza1);
 
-//        Krol krol = new Krol();
-//        krol.setKolor(Kolor.BIALY);
-//        krol.setPolozenieX(4);
-//        krol.setPolozenieY(1);
-//        krol.setSzachownica(szachownica);
-//        szachownica.getFigury().add(krol);
+        Wieza wieza2 = new Wieza();
+        wieza2.setKolor(kolor);
+        wieza2.setPolozenieX(7);
+        wieza2.setPolozenieY(polozenieY);
+        wieza2.setSzachownica(szachownica);
+        szachownica.getFigury().add(wieza2);
 
-//        Krolowa krolowa = new Krolowa();
-//        krolowa.setKolor(Kolor.CZARNY);
-//        krolowa.setPolozenieX(3);
-//        krolowa.setPolozenieY(6);
-//        krolowa.setSzachownica(szachownica);
-//        szachownica.getFigury().add(krolowa);
-//
-//        Pionek pionek = new Pionek();
-//        pionek.setKolor(Kolor.BIALY);
-//        pionek.setPolozenieX(2);
-//        pionek.setPolozenieY(3);
-//        pionek.setSzachownica(szachownica);
-//        szachownica.getFigury().add(pionek);
-//
-//        Pionek pionek1 = new Pionek();
-//        pionek1.setKolor(Kolor.CZARNY);
-//        pionek1.setPolozenieX(5);
-//        pionek1.setPolozenieY(5);
-//        pionek1.setSzachownica(szachownica);
-//        szachownica.getFigury().add(pionek1);
-//
-//////        Wieza wieza = new Wieza();
-//////        wieza.setKolor(Kolor.BIALY);
-//////        wieza.setPolozenieX(3);
-//////        wieza.setPolozenieY(1);
-//////        wieza.setSzachownica(szachownica);
-//////        szachownica.getFigury().add(wieza);
-////
-//        Wieza wieza1 = new Wieza();
-//        wieza1.setKolor(Kolor.CZARNY);
-//        wieza1.setPolozenieX(5);
-//        wieza1.setPolozenieY(0);
-//        wieza1.setSzachownica(szachownica);
-//        szachownica.getFigury().add(wieza1);
-//
-//        Krol krol1 = new Krol();
-//        krol1.setKolor(Kolor.CZARNY);
-//        krol1.setPolozenieX(4);
-//        krol1.setPolozenieY(7);
-//        krol1.setSzachownica(szachownica);
-//        szachownica.getFigury().add(krol1);
+        Kon kon1 = new Kon();
+        kon1.setKolor(kolor);
+        kon1.setPolozenieX(1);
+        kon1.setPolozenieY(polozenieY);
+        kon1.setSzachownica(szachownica);
+        szachownica.getFigury().add(kon1);
+
+        Kon kon2 = new Kon();
+        kon2.setKolor(kolor);
+        kon2.setPolozenieX(6);
+        kon2.setPolozenieY(polozenieY);
+        kon2.setSzachownica(szachownica);
+        szachownica.getFigury().add(kon2);
+
+        Laufer laufer1 = new Laufer();
+        laufer1.setKolor(kolor);
+        laufer1.setPolozenieX(2);
+        laufer1.setPolozenieY(polozenieY);
+        laufer1.setSzachownica(szachownica);
+        szachownica.getFigury().add(laufer1);
+
+        Laufer laufer2 = new Laufer();
+        laufer2.setKolor(kolor);
+        laufer2.setPolozenieX(5);
+        laufer2.setPolozenieY(polozenieY);
+        laufer2.setSzachownica(szachownica);
+        szachownica.getFigury().add(laufer2);
+
+        Krolowa krolowa = new Krolowa();
+        krolowa.setKolor(kolor);
+        krolowa.setPolozenieX(3);
+        krolowa.setPolozenieY(polozenieY);
+        krolowa.setSzachownica(szachownica);
+        szachownica.getFigury().add(krolowa);
+
+        Krol krol = new Krol();
+        krol.setKolor(kolor);
+        krol.setPolozenieX(4);
+        krol.setPolozenieY(polozenieY);
+        krol.setSzachownica(szachownica);
+        szachownica.getFigury().add(krol);
+
     }
 
     @Override
@@ -422,8 +364,8 @@ public class Szachy implements Gra {
     public void rozpocznijGreOdNowa (){
         List<Figura> listaFigur = new ArrayList<>();
         szachownica.setFigury(listaFigur);
-        ustawieniePionkowNaSzachownicy();
-        //ustawieniePionkowNaSzachownicy(Kolor.CZARNY);
+        ustawieniePionkowNaSzachownicy(Kolor.BIALY);
+        ustawieniePionkowNaSzachownicy(Kolor.CZARNY);
         numerRuchu = 0;
     }
 }

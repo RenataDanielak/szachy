@@ -1,4 +1,6 @@
 package pl.danielak.szachy.wirtualnyPrzeciwnik;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import pl.danielak.szachy.*;
 import pl.danielak.szachy.dto.ParametryPolaDto;
 import pl.danielak.szachy.dto.ParametryRuchuDto;
@@ -8,8 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Component
 public class WirtualnyPrzeciwnik {
 
+    @Autowired
     private Szachy szachy;
 
     public WirtualnyPrzeciwnik(Szachy szachy) {

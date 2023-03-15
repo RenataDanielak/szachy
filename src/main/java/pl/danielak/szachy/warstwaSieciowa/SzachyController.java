@@ -1,5 +1,6 @@
 package pl.danielak.szachy.warstwaSieciowa;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.danielak.szachy.Gra;
 import pl.danielak.szachy.Szachy;
@@ -17,13 +18,11 @@ import java.util.List;
 @RequestMapping("/szachy")
 public class SzachyController {
 
+    @Autowired
     Gra gra;
-    WirtualnyPrzeciwnik witrualnyPrzeciwnik;
 
-    public SzachyController() {
-        gra = new Szachy();
-        witrualnyPrzeciwnik = new WirtualnyPrzeciwnik((Szachy)gra);
-    }
+    @Autowired
+    WirtualnyPrzeciwnik witrualnyPrzeciwnik;
 
     @GetMapping("/plansza")
     public List<PionekDto> plansza() {

@@ -1,12 +1,13 @@
 package pl.danielak.szachy;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.danielak.szachy.dto.ParametryPolaDto;
 import pl.danielak.szachy.dto.PionekDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class Szachy implements Gra {
@@ -22,6 +23,7 @@ public class Szachy implements Gra {
     public Szachy(Szachownica szachownica){
         this.szachownica = szachownica;
     }
+
     public Szachownica getSzachownica() {
         return szachownica;
     }
@@ -119,16 +121,14 @@ public class Szachy implements Gra {
 
     @Override
     public List<PionekDto> listaPionkow() {
-        List<PionekDto> lista = new ArrayList<>();
-        for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ){
-            Figura figura = szachownica.getFigury().get(i);
-            PionekDto pionekDto = new PionekDto( figura.getPolozenieX(), figura.getPolozenieY(), figura.getKolor(), figura.getRodzajFigury());
-            lista.add(pionekDto);
-        }
+        List<PionekDto> lista = szachownica.getFigury().stream()
+                .map(figura -> new PionekDto(figura.getPolozenieX(), figura.getPolozenieY(), figura.getKolor(), figura.getRodzajFigury()))
+                .collect(Collectors.toList());
         return lista;
     }
 
-    public Szachownica szachownicaTestowa (){
+
+    public Szachownica stworzSzachowniceTestowa(){
         Szachownica szachownicaTestowa = new Szachownica();
         List<Figura> lista = new ArrayList<>();
         for (int j = 0; j < szachownica.getFigury().size(); j = j + 1 ){
@@ -180,95 +180,86 @@ public class Szachy implements Gra {
         int pozycjaPoczatkowaX = pozycjaPoczatkowaDto.getPozycjaX();
         int pozycjaPoczatkowaY = pozycjaPoczatkowaDto.getPozycjaY();
         Kolor kolor = kolejnoscRuchuFigurPodWzgledemKoloru(numerRuchu);
-        for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ){
-            Figura figura = szachownica.getFigury().get(i);
-            int pozycjaPionkaNaSzachownicyX = figura.getPolozenieX();
-            int pozycjaPionkaNaSzachownicyY = figura.getPolozenieY();
-            if (kolor == figura.getKolor() && pozycjaPoczatkowaX == pozycjaPionkaNaSzachownicyX && pozycjaPoczatkowaY == pozycjaPionkaNaSzachownicyY){
-                ParametryPola pozycjaPoczatkowa = new ParametryPola(pozycjaPoczatkowaX, pozycjaPoczatkowaY, true);
-                List<ParametryPolaDto> listaWynikowa = new ArrayList<>();
-                List <ParametryPola> lista = figura.podajMozliweRuchy();
-                List <ParametryPola> listaMozliwychRuchowZUwglednieniemKrola = mozliweRuchyZUwglednieniemPozycjiKrola(pozycjaPoczatkowa, lista);
-                for (int j = 0; j < listaMozliwychRuchowZUwglednieniemKrola.size(); j = j + 1 ){
-                    ParametryPolaDto parametryPolaDto = new ParametryPolaDto( listaMozliwychRuchowZUwglednieniemKrola.get(j).getPolozenieX(), listaMozliwychRuchowZUwglednieniemKrola.get(j).getPolozenieY());
-                    listaWynikowa.add(parametryPolaDto);
-                }
-                return listaWynikowa;
-            }
+
+        Optional<Figura> optionalFigura = szachownica.getFigury().stream()
+                .filter(figura -> figura.getKolor() == kolor && figura.getPolozenieX() == pozycjaPoczatkowaX && figura.getPolozenieY() == pozycjaPoczatkowaY)
+                .findFirst();
+
+        if(!optionalFigura.isPresent()){
+            return null;
         }
-        return null;
+        Figura figura = optionalFigura.get();
+        ParametryPola pozycjaPoczatkowa = new ParametryPola(pozycjaPoczatkowaX, pozycjaPoczatkowaY, true);
+        List<ParametryPolaDto> listaWynikowa = new ArrayList<>();
+        List <ParametryPola> lista = figura.podajMozliweRuchy();
+        List <ParametryPola> listaMozliwychRuchowZUwglednieniemKrola = mozliweRuchyZUwglednieniemPozycjiKrola(pozycjaPoczatkowa, lista);
+        for (int j = 0; j < listaMozliwychRuchowZUwglednieniemKrola.size(); j = j + 1 ){
+            ParametryPolaDto parametryPolaDto = new ParametryPolaDto( listaMozliwychRuchowZUwglednieniemKrola.get(j).getPolozenieX(), listaMozliwychRuchowZUwglednieniemKrola.get(j).getPolozenieY());
+            listaWynikowa.add(parametryPolaDto);
+        }
+        return listaWynikowa;
+
     }
 
     public boolean sprawdzMozliwyRuchUwzgledniajacPozycjeKrola (ParametryPola pozycjaPoczatkowa, ParametryPola pozycjaKoncowa, Szachownica szachownicaTestowa){
-        int polozenieKrolaX = 0;
-        int polozenieKrolaY = 0;
-        for (int i = 0; i < szachownicaTestowa.getFigury().size(); i = i + 1 ) {
-            Figura figuraNaSzachownicyTestowej = szachownicaTestowa.getFigury().get(i);
-            if(figuraNaSzachownicyTestowej.getPolozenieX() == pozycjaPoczatkowa.getPolozenieX() && figuraNaSzachownicyTestowej.getPolozenieY() == pozycjaPoczatkowa.getPolozenieY()){
-                boolean zajetePole = pozycjaKoncowa.isZajete();
-                if(zajetePole){
-                    for (int j = 0; j < szachownicaTestowa.getFigury().size(); j = j + 1 ) {
-                        if(szachownicaTestowa.getFigury().get(j).getPolozenieX() == pozycjaKoncowa.getPolozenieX() && szachownicaTestowa.getFigury().get(j).getPolozenieY() == pozycjaKoncowa.getPolozenieY()){
-                            szachownicaTestowa.getFigury().remove(j);
-                        }
-                    }
-                }
-                figuraNaSzachownicyTestowej.wykonajRuch(pozycjaKoncowa.getPolozenieY(), pozycjaKoncowa.getPolozenieX());
-                for (int j = 0; j < szachownicaTestowa.getFigury().size(); j = j + 1 ) {
-                    if (szachownicaTestowa.getFigury().get(j).getRodzajFigury() == RodzajFigury.KROL && figuraNaSzachownicyTestowej.getKolor() == szachownicaTestowa.getFigury().get(j).getKolor()) {
-                        polozenieKrolaX = szachownicaTestowa.getFigury().get(j).getPolozenieX();
-                        polozenieKrolaY = szachownicaTestowa.getFigury().get(j).getPolozenieY();
-                    }
-                }
-                for (int k = 0; k < szachownicaTestowa.getFigury().size(); k = k + 1 ) {
-                    List<ParametryPola> mozliweRuchyPrzeciwnegoKoloru = szachownicaTestowa.getFigury().get(k).podajMozliweRuchy();
-                    for (int l = 0; l < mozliweRuchyPrzeciwnegoKoloru.size(); l = l + 1 ) {
-                        boolean zajete = mozliweRuchyPrzeciwnegoKoloru.get(l).isZajete();
-                        if(zajete){
-                            if(polozenieKrolaX == mozliweRuchyPrzeciwnegoKoloru.get(l).getPolozenieX() && polozenieKrolaY == mozliweRuchyPrzeciwnegoKoloru.get(l).getPolozenieY()){
-                                return false;
-                            }
-                        }
-                    }
-                }
-
+        Optional<Figura> optionalFigura = szachownicaTestowa.getFigury().stream()
+                .filter(figura -> figura.getPolozenieX() == pozycjaPoczatkowa.getPolozenieX() && figura.getPolozenieY() == pozycjaPoczatkowa.getPolozenieY())
+                .findFirst();
+        if(!optionalFigura.isPresent()){
+            return true;
+        }
+        Figura figuraNaSzachownicyTestowej = optionalFigura.get();
+        boolean zajetePole = pozycjaKoncowa.isZajete();
+        if(zajetePole){
+            Optional<Figura> optionalFiguraNaZajetymPolu = szachownicaTestowa.getFigury().stream()
+                    .filter(figura -> figura.getPolozenieX() == pozycjaKoncowa.getPolozenieX() && figura.getPolozenieY() == pozycjaKoncowa.getPolozenieY())
+                    .findFirst();
+            if(optionalFiguraNaZajetymPolu.isPresent()){
+                szachownicaTestowa.getFigury().remove(optionalFiguraNaZajetymPolu.get());
             }
         }
-        return true;
+        figuraNaSzachownicyTestowej.wykonajRuch(pozycjaKoncowa.getPolozenieY(), pozycjaKoncowa.getPolozenieX());
+
+        Optional<Figura> opcionalKrol = szachownicaTestowa.getFigury().stream()
+                .filter(figura -> figura.getRodzajFigury() == RodzajFigury.KROL)
+                .filter(figura -> figura.getKolor() == figuraNaSzachownicyTestowej.getKolor())
+                .findFirst();
+
+        if(!opcionalKrol.isPresent()) {
+            return true;
+        }
+
+        final int polozenieKrolaX = opcionalKrol.get().getPolozenieX();
+        final int polozenieKrolaY = opcionalKrol.get().getPolozenieY();
+
+        boolean czyBijeKrola = szachownicaTestowa.getFigury().stream()
+                .anyMatch(figura -> figura.podajMozliweRuchy()
+                        .stream()
+                        .filter(mozliwyRuch -> mozliwyRuch.isZajete())
+                        .anyMatch(mozliwyRuch -> mozliwyRuch.getPolozenieX() == polozenieKrolaX && mozliwyRuch.getPolozenieY() == polozenieKrolaY));
+
+        return !czyBijeKrola;
     }
 
     public List<ParametryPola> mozliweRuchyZUwglednieniemPozycjiKrola(ParametryPola pozycjaPoczatkowa, List<ParametryPola> mozliweRuchy){
-        List<ParametryPola> lista = new ArrayList<>();
-        for (int i = 0; i < mozliweRuchy.size(); i = i + 1 ) {
-            ParametryPola mozliwyRuch = mozliweRuchy.get(i);
-            Szachownica szachownicaTestowa = szachownicaTestowa();
-            boolean sprawdzMozliwyRuch = sprawdzMozliwyRuchUwzgledniajacPozycjeKrola(pozycjaPoczatkowa, mozliwyRuch, szachownicaTestowa);
-            if(sprawdzMozliwyRuch){
-                lista.add(mozliwyRuch);
-            }
-        }
+        List<ParametryPola> lista = mozliweRuchy.stream()
+                .filter(mozliwyRuch -> sprawdzMozliwyRuchUwzgledniajacPozycjeKrola(pozycjaPoczatkowa, mozliwyRuch, stworzSzachowniceTestowa()))
+                .collect(Collectors.toList());
         return lista;
     }
 
     public boolean sprawdzCzyBijeKrola (Kolor kolor){
-        for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
-            if(szachownica.getFigury().get(i).getRodzajFigury() == RodzajFigury.KROL && szachownica.getFigury().get(i).getKolor() != kolor){
-                int polozenieKrolaX = szachownica.getFigury().get(i).getPolozenieX();
-                int polozenieKrolaY = szachownica.getFigury().get(i).getPolozenieY();
-                for (int j = 0; j < szachownica.getFigury().size(); j = j + 1 ) {
-                    List<ParametryPola> mozliweRuchy = szachownica.getFigury().get(j).podajMozliweRuchy();
-                    for (int k = 0; k < mozliweRuchy.size(); k = k + 1 ) {
-                        if(mozliweRuchy.get(k).isZajete()){
-                            if(mozliweRuchy.get(k).getPolozenieX() == polozenieKrolaX && mozliweRuchy.get(k).getPolozenieY() == polozenieKrolaY){
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
+        Optional<Figura> krol = szachownica.getFigury().stream()
+                .filter(figura -> figura.getRodzajFigury() == RodzajFigury.KROL && figura.getKolor() != kolor)
+                .findFirst();
+        if(!krol.isPresent()){
+            return false;
         }
-
-        return false;
+        int polozenieKrolaX = krol.get().getPolozenieX();
+        int polozenieKrolaY = krol.get().getPolozenieY();
+        return szachownica.getFigury().stream()
+                .anyMatch(figura -> figura.podajMozliweRuchy().stream()
+                        .anyMatch(mozliwyRuch -> mozliwyRuch.getPolozenieX() == polozenieKrolaX && mozliwyRuch.getPolozenieY() == polozenieKrolaY));
     }
 
     public boolean sprawdzCzyPrzeciwnikMozeWykonacRuch (Kolor kolor){
@@ -311,28 +302,29 @@ public class Szachy implements Gra {
 
     @Override
     public TypRuchu wykonajRuch(ParametryPolaDto pozycjaPoczatkowa, ParametryPolaDto pozycjaKoncowa) {
-        for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ){
-            Figura figura = szachownica.getFigury().get(i);
-            if (pozycjaPoczatkowa.getPozycjaX() == figura.getPolozenieX() && pozycjaPoczatkowa.getPozycjaY() == figura.getPolozenieY()){
-                List<ParametryPolaDto> mozliweRuchy = podajMozliweRuchy(pozycjaPoczatkowa);
-                int pozycjaKoncowaX = pozycjaKoncowa.getPozycjaX();
-                int pozycjaKoncowaY = pozycjaKoncowa.getPozycjaY();
-                for (int j = 0; j < mozliweRuchy.size(); j = j + 1 ){
-                   if(pozycjaKoncowaX == mozliweRuchy.get(j).getPozycjaX() && pozycjaKoncowaY == mozliweRuchy.get(j).getPozycjaY()) {
-                       for (int k = 0; k < szachownica.getFigury().size(); k = k + 1 ){
-                           if(szachownica.getFigury().get(k).getPolozenieX() == pozycjaKoncowaX && szachownica.getFigury().get(k).getPolozenieY() == pozycjaKoncowaY){
-                               szachownica.getFigury().remove(k);
-                           }
-                       }
-                       figura.wykonajRuch(pozycjaKoncowaY, pozycjaKoncowaX);
-                       zamianaPionkaWKrolowa(figura);
-                       numerRuchu = numerRuchu +1;
-                       return typRuchu(figura.getKolor());
-                   }
-                }
-            }
+        Optional<Figura> figuraOptional = szachownica.getFigury().stream()
+                .filter(figura -> figura.getPolozenieX() == pozycjaPoczatkowa.getPozycjaX() && figura.getPolozenieY() == pozycjaPoczatkowa.getPozycjaY())
+                .findFirst();
+        if(!figuraOptional.isPresent()){
+            throw new IllegalArgumentException();
         }
-        throw new IllegalArgumentException();
+        List<ParametryPolaDto> mozliweRuchy = podajMozliweRuchy(pozycjaPoczatkowa);
+        Optional<ParametryPolaDto> parametryPolaDtoOptional = mozliweRuchy.stream()
+                .filter(parametryPola -> parametryPola.getPozycjaX() == pozycjaKoncowa.getPozycjaX() && parametryPola.getPozycjaY() == pozycjaKoncowa.getPozycjaY())
+                .findFirst();
+        if(!parametryPolaDtoOptional.isPresent()) {
+            throw new IllegalArgumentException();
+        }
+        Optional<Figura> optionalFiguraDoBicia = szachownica.getFigury().stream()
+                .filter(figura -> figura.getPolozenieX() == pozycjaKoncowa.getPozycjaX() && figura.getPolozenieY() == pozycjaKoncowa.getPozycjaY())
+                .findFirst();
+        if(optionalFiguraDoBicia.isPresent()) {
+            szachownica.getFigury().remove(optionalFiguraDoBicia.get());
+        }
+        figuraOptional.get().wykonajRuch(pozycjaKoncowa.getPozycjaY(), pozycjaKoncowa.getPozycjaX());
+        zamianaPionkaWKrolowa(figuraOptional.get());
+        numerRuchu = numerRuchu +1;
+        return typRuchu(figuraOptional.get().getKolor());
     }
 
     public void zamianaPionkaWKrolowa(Figura figura){

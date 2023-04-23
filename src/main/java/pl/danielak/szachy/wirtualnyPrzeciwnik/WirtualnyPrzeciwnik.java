@@ -228,7 +228,7 @@ public class WirtualnyPrzeciwnik {
     }
 
     private Szachy zrobWirtualneSzachy (Szachy szachy){
-        Szachy wirtualneSzachy = new Szachy(szachy.szachownicaTestowa());
+        Szachy wirtualneSzachy = new Szachy(szachy.stworzSzachowniceTestowa());
         wirtualneSzachy.setNumerRuchu(szachy.getNumerRuchu());
         return wirtualneSzachy;
     }

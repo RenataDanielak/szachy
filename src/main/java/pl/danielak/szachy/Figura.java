@@ -60,13 +60,6 @@ public abstract class Figura {
         if(figuraOptional.isPresent()){
             return figuraOptional.get().getKolor();
         }
-//        for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
-//            int polozenieFiguryX = szachownica.getFigury().get(i).getPolozenieX();
-//            int polozenieFiguryY = szachownica.getFigury().get(i).getPolozenieY();
-//            if (polozenieX == polozenieFiguryX && polozenieY == polozenieFiguryY){
-//                return szachownica.getFigury().get(i).getKolor();
-//            }
-//        }
         return null;
    }
 

@@ -8,7 +8,9 @@ import pl.danielak.szachy.dto.PionekDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Component
 public class WirtualnyPrzeciwnik {
@@ -28,55 +30,32 @@ public class WirtualnyPrzeciwnik {
         this.szachy = szachy;
     }
 
-    public ParametryRuchuDto glupiWirtualnyPrzeciwnik() {
-        int numerRuchu = szachy.getNumerRuchu();
-        Kolor kolor = szachy.kolejnoscRuchuFigurPodWzgledemKoloru(numerRuchu);
-        List<PionekDto> listaPionkow = szachy.listaPionkow();
-        for (int i = 0; i < listaPionkow.size(); i = i + 1 ){
-            if(listaPionkow.get(i).getKolor() == kolor){
-                ParametryPolaDto pozycjaPoczatkowa = new ParametryPolaDto(listaPionkow.get(i).getPozycjaX(), listaPionkow.get(i).getPozyjcjaY());
-                List<ParametryPolaDto> mozliweRuchy = szachy.podajMozliweRuchy(pozycjaPoczatkowa);
-                if(mozliweRuchy.size() > 0){
-                    ParametryPolaDto pozycjaKoncowa = new ParametryPolaDto(mozliweRuchy.get(0).getPozycjaX(), mozliweRuchy.get(0).getPozycjaY());
-                    szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
-                    return new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
-                }
-            }
-
-        }
-        return null;
-    }
-
-
     public RuchWirtualnegoPrzeciwnika wykonajRuchWirtualnymPrzeciwnikiem() {
         List<ParametryRuchuWirtualnegoPrzeciwnika> mozliweRuchy = mozliweRuchy();
         List<ParametryRuchuWirtualnegoPrzeciwnika> najlepszeMin = najlepszeMin(mozliweRuchy);
+        ParametryPolaDto pozycjaPoczatkowa;
+        ParametryPolaDto pozycjaKoncowa;
         if(najlepszeMin.size() > 1){
             List<ParametryRuchuWirtualnegoPrzeciwnika> najlepszeMax = najlepszeMax(najlepszeMin);
             if(najlepszeMax.size() > 1){
                 Random randomGenerator = new Random();
                 int index = randomGenerator.nextInt(najlepszeMax.size());
-                ParametryPolaDto pozycjaPoczatkowa = najlepszeMax.get(index).getPolozeniePoczatkowe();
-                ParametryPolaDto pozycjaKoncowa = najlepszeMax.get(index).getPolozenieKoncowe();
-                TypRuchu typRuchu = szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
-                ParametryRuchuDto parametryRuchuDto = new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
-                return new RuchWirtualnegoPrzeciwnika(parametryRuchuDto, typRuchu);
+                pozycjaPoczatkowa = najlepszeMax.get(index).getPolozeniePoczatkowe();
+                pozycjaKoncowa = najlepszeMax.get(index).getPolozenieKoncowe();
+
             }
             else{
-                ParametryPolaDto pozycjaPoczatkowa = najlepszeMax.get(0).getPolozeniePoczatkowe();
-                ParametryPolaDto pozycjaKoncowa = najlepszeMax.get(0).getPolozenieKoncowe();
-                TypRuchu typRuchu = szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
-                ParametryRuchuDto parametryRuchuDto = new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
-                return new RuchWirtualnegoPrzeciwnika(parametryRuchuDto, typRuchu);
+                pozycjaPoczatkowa = najlepszeMax.get(0).getPolozeniePoczatkowe();
+                pozycjaKoncowa = najlepszeMax.get(0).getPolozenieKoncowe();
             }
         }
         else {
-            ParametryPolaDto pozycjaPoczatkowa = najlepszeMin.get(0).getPolozeniePoczatkowe();
-            ParametryPolaDto pozycjaKoncowa = najlepszeMin.get(0).getPolozenieKoncowe();
-            TypRuchu typRuchu = szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
-            ParametryRuchuDto parametryRuchuDto = new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
-            return new RuchWirtualnegoPrzeciwnika(parametryRuchuDto, typRuchu);
+            pozycjaPoczatkowa = najlepszeMin.get(0).getPolozeniePoczatkowe();
+            pozycjaKoncowa = najlepszeMin.get(0).getPolozenieKoncowe();
         }
+        TypRuchu typRuchu = szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
+        ParametryRuchuDto parametryRuchuDto = new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
+        return new RuchWirtualnegoPrzeciwnika(parametryRuchuDto, typRuchu);
     }
 
     public List<ParametryRuchuWirtualnegoPrzeciwnika> najlepszeMin(List<ParametryRuchuWirtualnegoPrzeciwnika> mozliweRuchy){
@@ -115,18 +94,18 @@ public class WirtualnyPrzeciwnik {
 
     public List<ParametryRuchuWirtualnegoPrzeciwnika> mozliweRuchy() {
         List<ParametryRuchuWirtualnegoPrzeciwnika> lista = new ArrayList<>();
-        int numerRuchu = szachy.getNumerRuchu();
-        Kolor kolor = szachy.kolejnoscRuchuFigurPodWzgledemKoloru(numerRuchu);
+        Kolor kolor = szachy.kolejnoscRuchuFigurPodWzgledemKoloru(szachy.getNumerRuchu());
         List<PionekDto> listaFigur = szachy.listaPionkow();
-        for (int i = 0; i < listaFigur.size(); i = i + 1 ){
-            if(listaFigur.get(i).getKolor() == kolor){
-                ParametryPolaDto pozycjaPoczatkowa = new ParametryPolaDto(listaFigur.get(i).getPozycjaX(), listaFigur.get(i).getPozyjcjaY());
-                List<ParametryPolaDto> mozliweRuchy = szachy.podajMozliweRuchy(pozycjaPoczatkowa);
-                for (int j = 0; j < mozliweRuchy.size(); j = j + 1 ){
-                    ParametryPolaDto pozycjaKoncowa = new ParametryPolaDto(mozliweRuchy.get(j).getPozycjaX(), mozliweRuchy.get(j).getPozycjaY());
-                    ParametryRuchuWirtualnegoPrzeciwnika parametryRuchu = generujParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa);
-                    lista.add(parametryRuchu);
-                }
+        List<ParametryPolaDto> pozycjePoczatkowe = listaFigur.stream()
+                .filter(figura -> figura.getKolor() == kolor)
+                .map(figura -> new ParametryPolaDto(figura.getPozycjaX(), figura.getPozyjcjaY()))
+                .collect(Collectors.toList());
+        for (int i = 0; i < pozycjePoczatkowe.size(); i = i + 1 ){
+            List<ParametryPolaDto> mozliweRuchy = szachy.podajMozliweRuchy(pozycjePoczatkowe.get(i));
+            for (int j = 0; j < mozliweRuchy.size(); j = j + 1 ){
+                ParametryPolaDto pozycjaKoncowa = new ParametryPolaDto(mozliweRuchy.get(j).getPozycjaX(), mozliweRuchy.get(j).getPozycjaY());
+                ParametryRuchuWirtualnegoPrzeciwnika parametryRuchu = generujParametryRuchuWirtualnegoPrzeciwnika(pozycjePoczatkowe.get(i), pozycjaKoncowa);
+                lista.add(parametryRuchu);
             }
         }
         return lista;
@@ -134,10 +113,11 @@ public class WirtualnyPrzeciwnik {
 
     public TypRuchu ruch (Figura figura, ParametryPolaDto pozycjaKoncowa, Szachy szachy) {
         Szachownica szachownica = szachy.getSzachownica();
-        for (int j = 0; j < szachownica.getFigury().size(); j = j + 1) {
-            if (szachownica.getFigury().get(j).getPolozenieX() == pozycjaKoncowa.getPozycjaX() && szachownica.getFigury().get(j).getPolozenieY() == pozycjaKoncowa.getPozycjaY()) {
-                szachownica.getFigury().remove(j);
-            }
+        Optional<Figura> figuraOptional = szachownica.getFigury().stream()
+                .filter(bierka -> bierka.getPolozenieX() == pozycjaKoncowa.getPozycjaX() && bierka.getPolozenieY() == pozycjaKoncowa.getPozycjaY())
+                .findFirst();
+        if(figuraOptional.isPresent()){
+            szachownica.getFigury().remove(figuraOptional.get());
         }
         figura.wykonajRuch(pozycjaKoncowa.getPozycjaY(), pozycjaKoncowa.getPozycjaX());
         szachy.setNumerRuchu(szachy.getNumerRuchu()+1);
@@ -150,49 +130,55 @@ public class WirtualnyPrzeciwnik {
     public ParametryRuchuWirtualnegoPrzeciwnika generujParametryRuchuWirtualnegoPrzeciwnika (ParametryPolaDto pozycjaPoczatkowa, ParametryPolaDto pozycjaKoncowa){
         int minimalnaWartoscRuchu = 1000;
         int maksymalnaWartoscRuchu = -1000;
-        int numerRuchu = szachy.getNumerRuchu();
-        TypRuchu typRuchu1 = null;
         Szachy szachyTestowe = zrobWirtualneSzachy(szachy);
         Szachownica szachownicaTestowa = szachyTestowe.getSzachownica();
-        for (int i = 0; i < szachownicaTestowa.getFigury().size(); i = i + 1) {
-            Figura figura = szachownicaTestowa.getFigury().get(i);
-            Kolor kolor = figura.getKolor();
-            if (figura.getPolozenieX() == pozycjaPoczatkowa.getPozycjaX() && figura.getPolozenieY() == pozycjaPoczatkowa.getPozycjaY()) {
-                TypRuchu typRuchu = ruch(figura, pozycjaKoncowa, szachyTestowe);
-                if (typRuchu == TypRuchu.SZACHMAT) {
-                    return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 50, 50);
-                } else if (typRuchu == TypRuchu.PAT) {
-                    return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 0, 0);
-                } else {
-                    for (int j = 0; j < szachownicaTestowa.getFigury().size(); j = j + 1) {
-                        if(szachownicaTestowa.getFigury().get(j).getKolor() != kolor){
-                            ParametryPolaDto pozycjaPoczatkowaPrzeciwnegoKoloru = new ParametryPolaDto(szachownicaTestowa.getFigury().get(j).getPolozenieX(), szachownicaTestowa.getFigury().get(j).getPolozenieY());
-                            List<ParametryPolaDto> mozliweRuchy = szachyTestowe.podajMozliweRuchy(pozycjaPoczatkowaPrzeciwnegoKoloru);
-                            for (int k = 0; k < mozliweRuchy.size(); k = k + 1) {
-                                Szachy szachyTestoweNaOdpowiedzPrzeciwnika = zrobWirtualneSzachy(szachyTestowe);
-                                ParametryPolaDto pozycjaKoncowaMozliwegoRuchu = new ParametryPolaDto(mozliweRuchy.get(k).getPozycjaX(), mozliweRuchy.get(k).getPozycjaY());
-                                typRuchu1 = ruch(szachownicaTestowa.getFigury().get(j), pozycjaKoncowaMozliwegoRuchu, szachyTestoweNaOdpowiedzPrzeciwnika);
-                                if(typRuchu1 == TypRuchu.SZACHMAT){
-                                    minimalnaWartoscRuchu = -50;
-                                }
-                                else {
-                                    List<PionekDto> listaPionkow = szachyTestoweNaOdpowiedzPrzeciwnika.listaPionkow();
-                                    int wartoscPionkowNaPlanszy = wartoscPionkowNaPlanszy(listaPionkow, kolor);
-                                    if(wartoscPionkowNaPlanszy < minimalnaWartoscRuchu){
-                                       minimalnaWartoscRuchu = wartoscPionkowNaPlanszy;
-                                    }
-                                    if(wartoscPionkowNaPlanszy > maksymalnaWartoscRuchu){
-                                        maksymalnaWartoscRuchu = wartoscPionkowNaPlanszy;
-                                    }
-                                }
-                            }
+        Optional<Figura> figuraOptional = szachownicaTestowa.getFigury().stream()
+                .filter(figura -> figura.getPolozenieX() == pozycjaPoczatkowa.getPozycjaX() && figura.getPolozenieY() == pozycjaPoczatkowa.getPozycjaY())
+                .findFirst();
+        if(!figuraOptional.isPresent()){
+            return null;
+        }
+        Kolor kolor = figuraOptional.get().getKolor();
+        TypRuchu typRuchu = ruch(figuraOptional.get(), pozycjaKoncowa, szachyTestowe);
+        if (typRuchu == TypRuchu.SZACHMAT) {
+            return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 50, 50);
+        } else if (typRuchu == TypRuchu.PAT) {
+            return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 0, 0);
+        } else {
+            List<Figura> listaFigurPrzeciwnegoKoloru = szachownicaTestowa.getFigury().stream()
+                    .filter(figura -> figura.getKolor() != kolor)
+                    .collect(Collectors.toList());
+            List<ParametryPolaDto> pozycjePoczatkowePrzeciwnegoKoloru = listaFigurPrzeciwnegoKoloru.stream()
+                    .map(figura -> new ParametryPolaDto(figura.getPolozenieX(), figura.getPolozenieY()))
+                    .collect(Collectors.toList());
+            for (int i = 0; i < pozycjePoczatkowePrzeciwnegoKoloru.size(); i = i + 1) {
+                List<ParametryPolaDto> mozliweRuchy = szachyTestowe.podajMozliweRuchy(pozycjePoczatkowePrzeciwnegoKoloru.get(i));
+                for (int j = 0; j < mozliweRuchy.size(); j = j + 1) {
+                    Szachy szachyTestoweNaOdpowiedzPrzeciwnika = zrobWirtualneSzachy(szachyTestowe);
+                    ParametryPolaDto pozycjaKoncowaMozliwegoRuchu = new ParametryPolaDto(mozliweRuchy.get(j).getPozycjaX(), mozliweRuchy.get(j).getPozycjaY());
+                    Optional<TypRuchu> typRuchuOptional = listaFigurPrzeciwnegoKoloru.stream()
+                            .map(figura -> ruch(figura, pozycjaKoncowaMozliwegoRuchu, szachyTestoweNaOdpowiedzPrzeciwnika))
+                            .findFirst();
+                    if(!typRuchuOptional.isPresent()){
+                        return null;
+                    }
+                    if(typRuchuOptional.get() == TypRuchu.SZACHMAT){
+                        minimalnaWartoscRuchu = -50;
+                    }
+                    else {
+                        List<PionekDto> listaPionkow = szachyTestoweNaOdpowiedzPrzeciwnika.listaPionkow();
+                        int wartoscPionkowNaPlanszy = wartoscPionkowNaPlanszy(listaPionkow, kolor);
+                        if(wartoscPionkowNaPlanszy < minimalnaWartoscRuchu){
+                            minimalnaWartoscRuchu = wartoscPionkowNaPlanszy;
+                        }
+                        if(wartoscPionkowNaPlanszy > maksymalnaWartoscRuchu){
+                            maksymalnaWartoscRuchu = wartoscPionkowNaPlanszy;
                         }
                     }
-                }
-                return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, minimalnaWartoscRuchu, maksymalnaWartoscRuchu);
             }
         }
-        return null;
+            return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, minimalnaWartoscRuchu, maksymalnaWartoscRuchu);
+        }
     }
 
 
@@ -232,19 +218,5 @@ public class WirtualnyPrzeciwnik {
         wirtualneSzachy.setNumerRuchu(szachy.getNumerRuchu());
         return wirtualneSzachy;
     }
-
-
-    //Skonczyc metode, wykonajRuch, kosmetyka, poprawa Conrollera, sprawdzic czy dziala postmanem
-    //wykonaj kazdy mozliwy ruch, ocen ten ruch - ocena ruchu na podstawie, czy robi szach-mat, czy bije jakas figure
-    // dla kazdego mozliwego ruchu wykonaj mozliwa odpowiedz przeciwnika, i ja ocen
-    // docelowo dostajemy liste obiektow, ktore zawieraja informacje o: polozenie poczatkowe, polozenie koncowe, minimalna wartosc ruchu, maksymalna wartosc ruchu
-    // docelowy ruch wykonuje figura z najwieksza wartoscia min, jesli kilka figur ma taka sama wartosc min to ruch wykonuje figura z majwieksza wartoscia max, jesli max jest kila takich samych to losowo
-// pionek wartosc 1
-    // ktolowa 9
-    //wieza 5
-    // laufer 3
-    // kon 3
-    // szach mat 50
-    //
 
 }

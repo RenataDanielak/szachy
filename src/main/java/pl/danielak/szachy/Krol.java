@@ -58,17 +58,6 @@ public class Krol extends FiguraWielokierunkowa {
             figuraOptional.get().setPolozenieY(figuraOptional.get().getPolozenieY());
         }
 
-//            for (int i = 0; i < szachownica.getFigury().size(); i = i + 1) {
-//                Figura figura = szachownica.getFigury().get(i);
-//                int polozenieWiezyX = figura.getPolozenieX();
-//                int polozenieWiezyY = figura.getPolozenieY();
-//                RodzajFigury rodzajFigury = szachownica.getFigury().get(i).getRodzajFigury();
-//                if (polozenieWiezyX == 7 && polozenieWiezyY == polozenieY && rodzajFigury == RodzajFigury.WIEZA) {
-//                    figura.setPolozenieX(polozenieWiezyX - 2);
-//                    figura.setPolozenieY(polozenieWiezyY);
-//                }
-//            }
-
     }
 
     protected boolean sprawdzWieze(int polozenieX, int polozenieY) {
@@ -84,20 +73,6 @@ public class Krol extends FiguraWielokierunkowa {
             return true;
         }
         return false;
-
-//        for (int i = 0; i < szachownica.getFigury().size(); i = i + 1) {
-//            int polozenieFiguryX = szachownica.getFigury().get(i).getPolozenieX();
-//            int polozenieFiguryY = szachownica.getFigury().get(i).getPolozenieY();
-//            RodzajFigury rodzajFigury = szachownica.getFigury().get(i).getRodzajFigury();
-//            if (polozenieFiguryX == polozenieX && polozenieFiguryY == polozenieY && rodzajFigury == RodzajFigury.WIEZA) {
-//                Wieza wieza = (Wieza) szachownica.getFigury().get(i);
-//                int numerRuchuWiezy = wieza.getNumerRuchuWiezy();
-//                if (numerRuchuWiezy == 0){
-//                    return true;
-//                }
-////            }
-////        }
-//        return false;
     }
 
     protected boolean sprawdzCzyMoznaWykonacRoszade() {

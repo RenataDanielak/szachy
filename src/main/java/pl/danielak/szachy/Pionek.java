@@ -24,8 +24,7 @@ public class Pionek extends Figura {
 
     @Override
     public List<ParametryPola> podajMozliweRuchy() {
-        List<ParametryPola> lista;
-        lista = new ArrayList<>();
+        List<ParametryPola> lista = new ArrayList<>();
         int polozenieX = getPolozenieX();
         int polozenieY = getPolozenieY();
         if (getKolor() == Kolor.BIALY){

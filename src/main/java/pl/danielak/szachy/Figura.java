@@ -3,6 +3,7 @@ package pl.danielak.szachy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class Figura {
     private int polozenieX;
@@ -53,13 +54,19 @@ public abstract class Figura {
         setPolozenieY(polozenieKoncoweY);
     }
     protected Kolor kolorFiguryNaPolu (int polozenieX, int polozenieY){
-        for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
-            int polozenieFiguryX = szachownica.getFigury().get(i).getPolozenieX();
-            int polozenieFiguryY = szachownica.getFigury().get(i).getPolozenieY();
-            if (polozenieX == polozenieFiguryX && polozenieY == polozenieFiguryY){
-                return szachownica.getFigury().get(i).getKolor();
-            }
+        Optional<Figura> figuraOptional = szachownica.getFigury().stream()
+                .filter(figura -> figura.getPolozenieX() == polozenieX && figura.getPolozenieY() == polozenieY)
+                .findFirst();
+        if(figuraOptional.isPresent()){
+            return figuraOptional.get().getKolor();
         }
+//        for (int i = 0; i < szachownica.getFigury().size(); i = i + 1 ) {
+//            int polozenieFiguryX = szachownica.getFigury().get(i).getPolozenieX();
+//            int polozenieFiguryY = szachownica.getFigury().get(i).getPolozenieY();
+//            if (polozenieX == polozenieFiguryX && polozenieY == polozenieFiguryY){
+//                return szachownica.getFigury().get(i).getKolor();
+//            }
+//        }
         return null;
    }
 

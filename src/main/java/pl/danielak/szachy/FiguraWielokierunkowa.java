@@ -12,7 +12,7 @@ public abstract class FiguraWielokierunkowa extends Figura{
                 ParametryPola polozenieKoncowe = new ParametryPola(polozenieX, polozenieY, false);
                 mozliwyRuch.add(polozenieKoncowe);
             }
-            if (kolorFiguryNaPolu != kolorFigury && kolorFiguryNaPolu != null) {
+            if (kolorFiguryNaPolu != null && kolorFiguryNaPolu != kolorFigury) {
                 ParametryPola polozenieKoncowe1 = new ParametryPola(polozenieX, polozenieY,true);
                 mozliwyRuch.add(polozenieKoncowe1);
             }

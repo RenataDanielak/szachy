@@ -16,7 +16,7 @@ public abstract class FiguraRuszajacaSieOWielePol extends Figura{
             polozenieY = polozenieY + b;
             kolorFigury = kolorFiguryNaPolu(polozenieX, polozenieY);
         }
-        if (kolor != kolorFigury && kolorFigury != null) {
+        if (kolorFigury != null && kolor != kolorFigury) {
             ParametryPola polozenieKoncowe1 = new ParametryPola(polozenieX, polozenieY, true);
             mozliwyRuch.add(polozenieKoncowe1);
         }

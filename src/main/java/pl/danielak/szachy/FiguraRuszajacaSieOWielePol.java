@@ -2,7 +2,7 @@ package pl.danielak.szachy;
 
 import java.util.List;
 
-public class FiguraRuszajacaSieOWielePol extends Figura{
+public abstract class FiguraRuszajacaSieOWielePol extends Figura{
 
     protected void sprawdzMozliwyRuch(int polozenieX, int polozenieY, List<ParametryPola> mozliwyRuch, int a, int b) {
         Kolor kolor = getKolor();
@@ -21,4 +21,5 @@ public class FiguraRuszajacaSieOWielePol extends Figura{
             mozliwyRuch.add(polozenieKoncowe1);
         }
     }
+
 }

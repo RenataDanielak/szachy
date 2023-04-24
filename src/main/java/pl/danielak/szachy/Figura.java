@@ -4,7 +4,7 @@ package pl.danielak.szachy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Figura {
+public abstract class Figura {
     private int polozenieX;
     private int polozenieY;
     private Kolor kolor;
@@ -46,11 +46,7 @@ public class Figura {
         this.szachownica = szachownica;
     }
 
-    public List<ParametryPola> podajMozliweRuchy(){
-        List<ParametryPola> lista;
-        lista = new ArrayList<>();
-        return lista;
-    }
+    public abstract List<ParametryPola> podajMozliweRuchy();
 
     public void wykonajRuch (int polozenieKoncoweY, int polozenieKoncoweX){
         setPolozenieX(polozenieKoncoweX);

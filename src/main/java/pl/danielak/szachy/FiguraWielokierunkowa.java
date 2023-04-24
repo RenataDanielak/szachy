@@ -2,7 +2,7 @@ package pl.danielak.szachy;
 
 import java.util.List;
 
-public class FiguraWielokierunkowa extends Figura{
+public abstract class FiguraWielokierunkowa extends Figura{
 
     protected void sprawdzMozliwyRuch(int polozenieX, int polozenieY, List<ParametryPola> mozliwyRuch) {
         Kolor kolorFigury = getKolor();

@@ -150,16 +150,16 @@ public class WirtualnyPrzeciwnikIntegracyjnyTest {
         Given:
         szachownica = new Szachownica();
         Krol krolBialy = new Krol(0, 1 , Kolor.BIALY, szachownica);
-        Krol krolCzarny = new Krol(5, 7, Kolor.CZARNY, szachownica);
         Wieza wiezaBiala = new Wieza(1, 1, Kolor.BIALY, szachownica);
         Kon konBialy = new Kon(3, 2, Kolor.BIALY, szachownica);
         Wieza wiezaCzarna = new Wieza(7, 2, Kolor.CZARNY, szachownica);
+        Pionek pionekCzarny = new Pionek(4, 7, Kolor.CZARNY, szachownica);
 
         szachownica.getFigury().add(krolBialy);
-        szachownica.getFigury().add(krolCzarny);
         szachownica.getFigury().add(wiezaBiala);
         szachownica.getFigury().add(konBialy);
         szachownica.getFigury().add(wiezaCzarna);
+        szachownica.getFigury().add(pionekCzarny);
 
         szachy = new Szachy(szachownica);
         wirtualnyPrzeciwnik = new WirtualnyPrzeciwnik(szachy);
@@ -368,6 +368,7 @@ public class WirtualnyPrzeciwnikIntegracyjnyTest {
         optymalneRuchy.add(new ParametryRuchuDto(new ParametryPolaDto(1, 0), new ParametryPolaDto(2, 2)));
         optymalneRuchy.add(new ParametryRuchuDto(new ParametryPolaDto(4, 1), new ParametryPolaDto(4, 2)));
         optymalneRuchy.add(new ParametryRuchuDto(new ParametryPolaDto(4, 1), new ParametryPolaDto(4, 3)));
+
 
         When:
         ruch = wirtualnyPrzeciwnik.wykonajRuchWirtualnymPrzeciwnikiem();

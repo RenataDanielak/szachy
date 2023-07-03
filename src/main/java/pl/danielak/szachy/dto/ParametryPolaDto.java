@@ -39,4 +39,12 @@ public class ParametryPolaDto {
     public int hashCode() {
         return Objects.hash(pozycjaX, pozycjaY);
     }
+
+    @Override
+    public String toString() {
+        return "ParametryPolaDto{" +
+                "pozycjaX=" + pozycjaX +
+                ", pozycjaY=" + pozycjaY +
+                '}';
+    }
 }

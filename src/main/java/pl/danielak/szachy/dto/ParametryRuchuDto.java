@@ -44,4 +44,12 @@ public class ParametryRuchuDto {
     public int hashCode() {
         return Objects.hash(start, koniec);
     }
+
+    @Override
+    public String toString() {
+        return "ParametryRuchuDto{" +
+                "start=" + start +
+                ", koniec=" + koniec +
+                '}';
+    }
 }

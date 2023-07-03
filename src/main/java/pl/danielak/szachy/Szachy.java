@@ -15,6 +15,7 @@ public class Szachy implements Gra {
     private int numerRuchu = 0;
 
     public Szachy () {
+        System.out.println("Rozpoczynam gre");
         szachownica = new Szachownica();
         ustawieniePionkowNaSzachownicy(Kolor.BIALY);
         ustawieniePionkowNaSzachownicy(Kolor.CZARNY);

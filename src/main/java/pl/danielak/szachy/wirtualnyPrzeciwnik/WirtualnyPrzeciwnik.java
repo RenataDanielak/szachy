@@ -31,6 +31,7 @@ public class WirtualnyPrzeciwnik {
     }
 
     public RuchWirtualnegoPrzeciwnika wykonajRuchWirtualnymPrzeciwnikiem() {
+        System.out.println("Rozpoczynam generowanie kolejnego ruchu");
         List<ParametryRuchuWirtualnegoPrzeciwnika> mozliweRuchy = mozliweRuchy();
         List<ParametryRuchuWirtualnegoPrzeciwnika> najlepszeMin = najlepszeMin(mozliweRuchy);
         ParametryPolaDto pozycjaPoczatkowa;
@@ -55,6 +56,8 @@ public class WirtualnyPrzeciwnik {
         }
         TypRuchu typRuchu = szachy.wykonajRuch(pozycjaPoczatkowa, pozycjaKoncowa);
         ParametryRuchuDto parametryRuchuDto = new ParametryRuchuDto(pozycjaPoczatkowa, pozycjaKoncowa);
+        System.out.println("Najlepsze minimalneRuchy " + najlepszeMin);
+        System.out.println("Wykonano ruch " + parametryRuchuDto);
         return new RuchWirtualnegoPrzeciwnika(parametryRuchuDto, typRuchu);
     }
 
@@ -100,18 +103,20 @@ public class WirtualnyPrzeciwnik {
                 .filter(figura -> figura.getKolor() == kolor)
                 .map(figura -> new ParametryPolaDto(figura.getPozycjaX(), figura.getPozyjcjaY()))
                 .collect(Collectors.toList());
-        for (int i = 0; i < pozycjePoczatkowe.size(); i = i + 1 ){
-            List<ParametryPolaDto> mozliweRuchy = szachy.podajMozliweRuchy(pozycjePoczatkowe.get(i));
-            for (int j = 0; j < mozliweRuchy.size(); j = j + 1 ){
-                ParametryPolaDto pozycjaKoncowa = new ParametryPolaDto(mozliweRuchy.get(j).getPozycjaX(), mozliweRuchy.get(j).getPozycjaY());
-                ParametryRuchuWirtualnegoPrzeciwnika parametryRuchu = generujParametryRuchuWirtualnegoPrzeciwnika(pozycjePoczatkowe.get(i), pozycjaKoncowa);
-                lista.add(parametryRuchu);
-            }
-        }
+
+        pozycjePoczatkowe.stream()
+                .forEach(pozycjaPoczatkowa -> szachy.podajMozliweRuchy(pozycjaPoczatkowa).stream()
+                        .forEach(mozliwyRuch -> {
+                            ParametryRuchuWirtualnegoPrzeciwnika parametryRuchu = generujParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, mozliwyRuch);
+                            lista.add(parametryRuchu);
+                        }
+                        ));
         return lista;
     }
 
     public TypRuchu ruch (Figura figura, ParametryPolaDto pozycjaKoncowa, Szachy szachy) {
+
+        //TUDAJ JEST BLAD BO FIGURA JEST Z SZACHOWNICY TESTOWEJ
         Szachownica szachownica = szachy.getSzachownica();
         Optional<Figura> figuraOptional = szachownica.getFigury().stream()
                 .filter(bierka -> bierka.getPolozenieX() == pozycjaKoncowa.getPozycjaX() && bierka.getPolozenieY() == pozycjaKoncowa.getPozycjaY())
@@ -128,6 +133,11 @@ public class WirtualnyPrzeciwnik {
 
 
     public ParametryRuchuWirtualnegoPrzeciwnika generujParametryRuchuWirtualnegoPrzeciwnika (ParametryPolaDto pozycjaPoczatkowa, ParametryPolaDto pozycjaKoncowa){
+        System.out.println("--Sprawdzam ruch pionkiem:"
+                + pozycjaPoczatkowa
+                + "na pozycje"
+                + pozycjaKoncowa
+        );
         int minimalnaWartoscRuchu = 1000;
         int maksymalnaWartoscRuchu = -1000;
         Szachy szachyTestowe = zrobWirtualneSzachy(szachy);
@@ -136,13 +146,16 @@ public class WirtualnyPrzeciwnik {
                 .filter(figura -> figura.getPolozenieX() == pozycjaPoczatkowa.getPozycjaX() && figura.getPolozenieY() == pozycjaPoczatkowa.getPozycjaY())
                 .findFirst();
         if(!figuraOptional.isPresent()){
+            System.out.println("Nieznaleziono figury");
             return null;
         }
         Kolor kolor = figuraOptional.get().getKolor();
         TypRuchu typRuchu = ruch(figuraOptional.get(), pozycjaKoncowa, szachyTestowe);
         if (typRuchu == TypRuchu.SZACHMAT) {
+            System.out.println("Ruch spowoduje szach-mat");
             return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 50, 50);
         } else if (typRuchu == TypRuchu.PAT) {
+            System.out.println("Ruch spowoduje PAT");
             return new ParametryRuchuWirtualnegoPrzeciwnika(pozycjaPoczatkowa, pozycjaKoncowa, 0, 0);
         } else {
             List<Figura> listaFigurPrzeciwnegoKoloru = szachownicaTestowa.getFigury().stream()
@@ -152,22 +165,43 @@ public class WirtualnyPrzeciwnik {
                     .map(figura -> new ParametryPolaDto(figura.getPolozenieX(), figura.getPolozenieY()))
                     .collect(Collectors.toList());
             for (int i = 0; i < pozycjePoczatkowePrzeciwnegoKoloru.size(); i = i + 1) {
+                ParametryPolaDto pozycjaPoczatkowaPrzeciwnegoKoloru = pozycjePoczatkowePrzeciwnegoKoloru.get(i);
                 List<ParametryPolaDto> mozliweRuchy = szachyTestowe.podajMozliweRuchy(pozycjePoczatkowePrzeciwnegoKoloru.get(i));
                 for (int j = 0; j < mozliweRuchy.size(); j = j + 1) {
                     Szachy szachyTestoweNaOdpowiedzPrzeciwnika = zrobWirtualneSzachy(szachyTestowe);
-                    ParametryPolaDto pozycjaKoncowaMozliwegoRuchu = new ParametryPolaDto(mozliweRuchy.get(j).getPozycjaX(), mozliweRuchy.get(j).getPozycjaY());
-                    Optional<TypRuchu> typRuchuOptional = listaFigurPrzeciwnegoKoloru.stream()
-                            .map(figura -> ruch(figura, pozycjaKoncowaMozliwegoRuchu, szachyTestoweNaOdpowiedzPrzeciwnika))
+
+
+                    //Trzeba znalezc taka sama figure na szachyTestoweNaOdpowiedzPrzeciwnika ktora jest w wirtualnychSzachach
+                    Szachownica szachownicaTestowaNaOdpowiedzPrzeciwnika = szachyTestoweNaOdpowiedzPrzeciwnika.getSzachownica();
+                    Optional<Figura> figuraOdpowiedzPrzeciwnikaOptional = szachownicaTestowaNaOdpowiedzPrzeciwnika.getFigury().stream()
+                            .filter(figura -> figura.getPolozenieX() == pozycjaPoczatkowaPrzeciwnegoKoloru.getPozycjaX() && figura.getPolozenieY() == pozycjaPoczatkowaPrzeciwnegoKoloru.getPozycjaY())
                             .findFirst();
-                    if(!typRuchuOptional.isPresent()){
+                    if(!figuraOdpowiedzPrzeciwnikaOptional.isPresent()){
+                        System.out.println("Nieznaleziono figury na szachach testowych na odpowiedz przeciwnika");
                         return null;
                     }
-                    if(typRuchuOptional.get() == TypRuchu.SZACHMAT){
+
+                    ParametryPolaDto pozycjaKoncowaMozliwegoRuchu = new ParametryPolaDto(mozliweRuchy.get(j).getPozycjaX(), mozliweRuchy.get(j).getPozycjaY());
+                    System.out.println("----Sprawdzam odpowiedz przeciwnika z "
+                            + pozycjePoczatkowePrzeciwnegoKoloru.get(i) +
+                            "do " + pozycjaKoncowaMozliwegoRuchu);
+
+                   TypRuchu typRuchuOdpowiedzPrzeciwnika = ruch(figuraOdpowiedzPrzeciwnikaOptional.get(), pozycjaKoncowaMozliwegoRuchu, szachyTestoweNaOdpowiedzPrzeciwnika);
+
+//                    Optional<TypRuchu> typRuchuOptional = listaFigurPrzeciwnegoKoloru.stream()
+//                            .map(figura -> ruch(figuraOdpowiedzPrzeciwnikaOptional.get(), pozycjaKoncowaMozliwegoRuchu, szachyTestoweNaOdpowiedzPrzeciwnika))
+//                            .findFirst();
+//                    if(!typRuchuOptional.isPresent()){
+//                        return null;
+//                    }
+                    if(typRuchuOdpowiedzPrzeciwnika == TypRuchu.SZACHMAT){
                         minimalnaWartoscRuchu = -50;
+                        System.out.println("Przeciwnik wykona Szach-Mat ");
                     }
                     else {
                         List<PionekDto> listaPionkow = szachyTestoweNaOdpowiedzPrzeciwnika.listaPionkow();
                         int wartoscPionkowNaPlanszy = wartoscPionkowNaPlanszy(listaPionkow, kolor);
+                        System.out.println("----Wyliczona wartosc pionkow na planszy" + wartoscPionkowNaPlanszy);
                         if(wartoscPionkowNaPlanszy < minimalnaWartoscRuchu){
                             minimalnaWartoscRuchu = wartoscPionkowNaPlanszy;
                         }

@@ -150,16 +150,20 @@ public class WirtualnyPrzeciwnikIntegracyjnyTest {
         Given:
         szachownica = new Szachownica();
         Krol krolBialy = new Krol(0, 1 , Kolor.BIALY, szachownica);
+        Krol krolCzarny = new Krol(4, 6 , Kolor.CZARNY, szachownica);
         Wieza wiezaBiala = new Wieza(1, 1, Kolor.BIALY, szachownica);
         Kon konBialy = new Kon(3, 2, Kolor.BIALY, szachownica);
         Wieza wiezaCzarna = new Wieza(7, 2, Kolor.CZARNY, szachownica);
-        Pionek pionekCzarny = new Pionek(4, 7, Kolor.CZARNY, szachownica);
+        Pionek pionekCzarny = new Pionek(3, 6, Kolor.CZARNY, szachownica);
+        Pionek pionekCzarny1 = new Pionek(4, 5, Kolor.CZARNY, szachownica);
 
         szachownica.getFigury().add(krolBialy);
+        szachownica.getFigury().add(krolCzarny);
         szachownica.getFigury().add(wiezaBiala);
         szachownica.getFigury().add(konBialy);
         szachownica.getFigury().add(wiezaCzarna);
         szachownica.getFigury().add(pionekCzarny);
+        szachownica.getFigury().add(pionekCzarny1);
 
         szachy = new Szachy(szachownica);
         wirtualnyPrzeciwnik = new WirtualnyPrzeciwnik(szachy);

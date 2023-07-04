@@ -49,13 +49,4 @@ public class ParametryRuchuWirtualnegoPrzeciwnika {
         this.maksymalnaWartoscRuchu = maksymalnaWartoscRuchu;
     }
 
-    @Override
-    public String toString() {
-        return "ParametryRuchuWirtualnegoPrzeciwnika{" +
-                "polozeniePoczatkowe=" + polozeniePoczatkowe +
-                ", polozenieKoncowe=" + polozenieKoncowe +
-                ", minimalnaWartoscRuchu=" + minimalnaWartoscRuchu +
-                ", maksymalnaWartoscRuchu=" + maksymalnaWartoscRuchu +
-                '}';
-    }
 }
